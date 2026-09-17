@@ -1,0 +1,13 @@
+{
+  "title": "Documentation",
+  "pages": [
+    "index",
+    "installation",
+    "updating",
+    "writing",
+    "reading",
+    "typesetting",
+    "reference",
+    "relationship-to-zed"
+  ]
+}

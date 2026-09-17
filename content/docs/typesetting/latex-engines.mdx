@@ -1,0 +1,82 @@
+---
+title: Choosing a LaTeX Engine
+description: Conference templates pin engines, so the engine is a setting rather than a default.
+icon: Settings2
+---
+
+Which program compiles your `.tex` files is a setting, because no single
+default can serve every document. Conference templates routinely pin an
+engine — AAAI and many IEEE styles call `\RequirePDFTeX` and refuse to build
+under XeTeX or LuaTeX.
+
+```json title="settings.json"
+{
+  "typeset_preview": {
+    "latex_engine": "auto"
+  }
+}
+```
+
+## The options
+
+<Tabs items={['auto', 'latexmk', 'A specific engine', 'External command']}>
+
+<Tab value="auto">
+
+The default. Uses `latexmk` from your `PATH`, falling back to the managed
+TeX Live (TinyTeX) that Suzuri offers to download on first use.
+
+```json
+{ "typeset_preview": { "latex_engine": "auto" } }
+```
+
+</Tab>
+
+<Tab value="latexmk">
+
+Drives `latexmk`, which picks the engine the document asks for and reruns as
+many passes as the references need.
+
+```json
+{ "typeset_preview": { "latex_engine": "latexmk" } }
+```
+
+</Tab>
+
+<Tab value="A specific engine">
+
+`"pdflatex"`, `"lualatex"`, or `"xelatex"`.
+
+`lualatex` is what the LaTeX Project recommends for new documents.
+`pdflatex` is what AAAI and IEEE templates require.
+
+```json
+{ "typeset_preview": { "latex_engine": "pdflatex" } }
+```
+
+</Tab>
+
+<Tab value="External command">
+
+Any other program. It runs in the document's directory with the file name
+appended.
+
+```json
+{
+  "typeset_preview": {
+    "latex_engine": {
+      "external": { "command": "tectonic", "arguments": [] }
+    }
+  }
+}
+```
+
+</Tab>
+
+</Tabs>
+
+<Callout title="Set it per project">
+Put the setting in `.zed/settings.json` inside the project so the paper
+under an IEEE template builds with `pdflatex` while everything else stays on
+`auto`.
+</Callout>

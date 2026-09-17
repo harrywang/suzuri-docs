@@ -1,0 +1,85 @@
+---
+title: Installation
+description: Download a signed build for macOS, Windows, or Linux, or build Suzuri from source.
+icon: Download
+---
+
+## Download
+
+Grab the latest installer from the
+[releases page](https://github.com/harrywang/suzuri/releases/latest):
+
+| Platform | Asset |
+| --- | --- |
+| macOS — Apple Silicon | `suzuri-aarch64.dmg` |
+| macOS — Intel | `suzuri-x86_64.dmg` |
+| Windows | `suzuri-windows-x86_64.exe` |
+| Linux — x86_64 | `suzuri-linux-x86_64.tar.gz` |
+| Linux — ARM64 | `suzuri-linux-aarch64.tar.gz` |
+
+<Tabs items={['macOS', 'Windows', 'Linux']}>
+
+<Tab value="macOS">
+
+The macOS builds are Developer ID signed and notarized. Open the DMG and drag
+Suzuri to Applications — Gatekeeper will not complain.
+
+</Tab>
+
+<Tab value="Windows">
+
+The Windows installer is not yet signed, so SmartScreen shows a warning. Choose
+**More info → Run anyway**.
+
+</Tab>
+
+<Tab value="Linux">
+
+The Linux build is a plain tarball. Extract it somewhere permanent, put its
+`bin/suzuri` on your `PATH`, and optionally copy its `share/` folder into
+`~/.local/share` for an app-menu entry and icon:
+
+```sh
+mkdir -p ~/.local/bin
+tar -xzf suzuri-linux-x86_64.tar.gz -C ~/.local
+ln -sf ~/.local/suzuri.app/bin/suzuri ~/.local/bin/suzuri
+cp -r ~/.local/suzuri.app/share/. ~/.local/share/
+```
+
+</Tab>
+
+</Tabs>
+
+That first install is the only manual one — see [Updating](/updating) for
+how Suzuri keeps itself current.
+
+## Open a folder
+
+Suzuri works on a folder of plain files, which the docs call a **vault**: your
+notes, the PDFs you read, a `refs/` folder for your bibliography, and whatever
+code lives alongside them. There is no import step and no proprietary database.
+
+To try it against known fixtures, clone
+[suzuri-testbed](https://github.com/harrywang/suzuri-testbed) and open that
+folder. Each folder targets one rendering surface — markdown live preview,
+Python REPL and notebook execution, LaTeX and Typst preview, the PDF viewer —
+and several fixtures are self-checking notes with a checklist at the top, so
+you can verify behavior by eye.
+
+## Build from source
+
+Suzuri builds exactly the way Zed does. Follow Zed's platform guides against
+this repository:
+
+<Cards>
+  <Card title="macOS" href="https://github.com/harrywang/suzuri/blob/main/docs/src/development/macos.md" />
+  <Card title="Linux" href="https://github.com/harrywang/suzuri/blob/main/docs/src/development/linux.md" />
+  <Card title="Windows" href="https://github.com/harrywang/suzuri/blob/main/docs/src/development/windows.md" />
+</Cards>
+
+Then:
+
+```sh
+cargo run                        # debug build (slow, fine for iteration)
+cargo run --profile release-fast # the profile used day to day
+```

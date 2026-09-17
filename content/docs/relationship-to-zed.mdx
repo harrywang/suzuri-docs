@@ -1,0 +1,70 @@
+---
+title: Relationship to Zed
+description: What Suzuri is, what it is not, and how upstream changes reach it.
+icon: GitFork
+---
+
+**Suzuri is a modified version of [Zed](https://github.com/zed-industries/zed),
+the editor by Zed Industries, Inc.** It tracks Zed's `main` branch and merges
+upstream weekly, so Zed's improvements — and its bug fixes — arrive here too.
+
+Suzuri is not affiliated with, endorsed by, or sponsored by Zed Industries,
+Inc. "Zed" is a trademark of Zed Industries, Inc.; it is used here only to
+identify the upstream project from which Suzuri is derived.
+
+## What is actually different
+
+The modifications are additive and small. They live mostly in fork-owned
+crates:
+
+| Feature | Where it lives |
+| --- | --- |
+| [Live preview](/writing/live-preview) | `crates/markdown_live_preview` |
+| [Math rendering](/writing/math-and-diagrams) | `crates/math_render` |
+| [PDF viewer](/reading/pdf-viewer) | `crates/pdf_viewer` |
+| [Typst/LaTeX preview](/typesetting) | `crates/typeset_preview` |
+| [Citations](/writing/citations) | `crates/citations` |
+
+Plus small changes to `crates/editor` (the concealment and per-line typography
+hooks live preview needs, and markdown attachment drop/paste),
+`crates/project_panel`, and `crates/languages` (the built-in
+[markdown-oxide](/writing/wikilinks) language server).
+
+Almost everything else in the repository — 243 crates — is upstream Zed.
+
+## Practical consequences
+
+- **Your Zed knowledge transfers.** Settings, keymaps, themes, extensions,
+  tasks, the agent panel, remote development: all of it works the way Zed
+  documents it.
+- **Config paths are Zed's.** `~/.config/zed/settings.json` and
+  `.zed/settings.json`. Suzuri does not fork them.
+- **Updates come from Suzuri's releases**, not Zed's. See
+  [Updating](/updating).
+- **Bugs in shared code are usually upstream bugs.** They get fixed in Zed and
+  return here on the next weekly merge.
+
+## Licensing
+
+Suzuri, like Zed, is licensed primarily under GPL-3.0-or-later, with Apache-2.0
+components where marked. See
+[LICENSE-GPL](https://github.com/harrywang/suzuri/blob/main/LICENSE-GPL) and
+[LICENSE-APACHE](https://github.com/harrywang/suzuri/blob/main/LICENSE-APACHE).
+
+Copyright for the upstream code remains with Zed Industries, Inc. and Zed's
+contributors; per-file copyright notices are preserved.
+
+## Standing on shoulders
+
+- [Zed](https://zed.dev) — the editor underneath everything
+- [hayro](https://github.com/LaurenzV/hayro) by Laurenz Stampfl — pure-Rust PDF
+  rendering
+- [markdown-oxide](https://github.com/Feel-ix-343/markdown-oxide) by Felix
+  Zeller — the PKM language server behind wikilinks, backlinks, and link
+  diagnostics
+- [Typst](https://github.com/typst/typst) — the compiler behind Typst live
+  preview
+- [TinyTeX](https://github.com/rstudio/tinytex) by Yihui Xie — the relocatable
+  TeX Live behind LaTeX live preview
+- [hayagriva](https://github.com/typst/hayagriva) — the CSL engine behind
+  formatted references

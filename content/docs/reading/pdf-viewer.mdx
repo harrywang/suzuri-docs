@@ -1,0 +1,59 @@
+---
+title: PDF Viewer
+description: A native PDF pane with continuous scroll, zoom, and real text selection, that reloads in place when the file changes on disk.
+icon: FileText
+---
+
+Open a `.pdf` and it opens in a Suzuri tab, not in Preview or a browser. That
+matters because the PDF is the other half of the work: the paper you're citing,
+the draft you just compiled, the figure you're checking.
+
+- **Continuous scroll** through the whole document, not a page at a time
+- **Real text selection** — glyph-accurate, so copied text is the document's
+  text, not OCR
+- **Zoom**, fit-to-width, and actual size
+- **Reloads in place** when the bytes change on disk, keeping your scroll
+  position — which is what makes [typeset preview](/typesetting) feel live
+
+It works on remote projects too: a PDF rewritten on an SSH host reloads in the
+local pane.
+
+## Keybindings
+
+| Action | macOS |
+| --- | --- |
+| Zoom in | <kbd>Cmd</kbd>+<kbd>=</kbd> |
+| Zoom out | <kbd>Cmd</kbd>+<kbd>-</kbd> |
+| Reset zoom | <kbd>Cmd</kbd>+<kbd>0</kbd> |
+| Actual size (100%) | <kbd>Cmd</kbd>+<kbd>1</kbd> |
+| Fit to view width | <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd> |
+| Copy all document text | <kbd>Cmd</kbd>+<kbd>C</kbd> |
+
+On Windows and Linux, substitute <kbd>Ctrl</kbd>. The same actions are
+available from the command palette as `pdf_viewer: zoom in`,
+`pdf_viewer: fit to view`, and so on, so you can
+[rebind them](/reference/keybindings).
+
+<Callout title="Copy all document text">
+<kbd>Cmd</kbd>+<kbd>C</kbd> with no selection copies the *entire* document's
+text — handy for pasting a paper into an agent thread.
+</Callout>
+
+## Getting to a PDF
+
+- Click a `.pdf` in the project panel
+- Follow a `[](...)` link to an [attached PDF](/writing/attachments)
+- Put the cursor on a cite key and press
+  <kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>O</kbd> — see
+  [Citations](/writing/citations)
+- Preview a `.typ` or `.tex` file — see [Typesetting](/typesetting)
+
+## Credits
+
+The viewer is built on [hayro](https://github.com/LaurenzV/hayro), a pure-Rust
+PDF renderer by Laurenz Stampfl. It was originally written by David Turnbull
+as a contribution to Zed
+([zed#51040](https://github.com/zed-industries/zed/pull/51040)), closed there
+as out of scope for a code editor, and adopted into Suzuri — where a research
+editor makes it a core surface. The glyph-accurate text extraction comes from
+the same author's hayro work.

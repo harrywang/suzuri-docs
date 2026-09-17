@@ -1,0 +1,12 @@
+{
+  "title": "Writing",
+  "icon": "PenLine",
+  "pages": [
+    "live-preview",
+    "tables-and-images",
+    "attachments",
+    "math-and-diagrams",
+    "wikilinks",
+    "citations"
+  ]
+}

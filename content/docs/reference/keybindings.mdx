@@ -1,0 +1,78 @@
+---
+title: Keybindings & Actions
+description: The actions Suzuri adds, their default bindings, and how to rebind them.
+icon: Keyboard
+---
+
+Every Suzuri feature is a named action, reachable from the command palette
+(<kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>) and bindable like any other.
+
+## Suzuri actions
+
+| Action | Default (macOS) | What it does |
+| --- | --- | --- |
+| `markdown::ToggleLivePreview` | — | Toggles [live preview](/writing/live-preview) in the current markdown buffer. |
+| `citations::InsertCitation` | <kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>C</kbd> | Searches the vault library and Zotero, and [inserts a citation](/writing/citations) at the cursor. |
+| `citations::OpenSource` | <kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>O</kbd> | Opens the PDF behind the cite key under the cursor, in a split. |
+| `typeset_preview::OpenLivePreview` | — | [Previews](/typesetting/live-preview) the current file: Typst and LaTeX compile to a PDF in a split; HTML opens in the browser. |
+
+`typeset_preview::OpenLivePreview` also has a **Preview** button in the toolbar
+for `.typ` and `.tex` files, and an entry in the project panel's context menu.
+
+## PDF viewer
+
+These apply while a [PDF tab](/reading/pdf-viewer) has focus.
+
+| Action | Default (macOS) |
+| --- | --- |
+| `pdf_viewer::ZoomIn` | <kbd>Cmd</kbd>+<kbd>=</kbd> |
+| `pdf_viewer::ZoomOut` | <kbd>Cmd</kbd>+<kbd>-</kbd> |
+| `pdf_viewer::ResetZoom` | <kbd>Cmd</kbd>+<kbd>0</kbd> |
+| `pdf_viewer::ZoomToActualSize` | <kbd>Cmd</kbd>+<kbd>1</kbd> |
+| `pdf_viewer::FitToView` | <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd> |
+| `pdf_viewer::CopyDocumentText` | <kbd>Cmd</kbd>+<kbd>C</kbd> |
+
+On Windows and Linux, substitute <kbd>Ctrl</kbd> for <kbd>Cmd</kbd>.
+
+## Widget keys
+
+Inside a [table cell](/writing/tables-and-images):
+
+| Key | Effect |
+| --- | --- |
+| <kbd>Tab</kbd> | Commit and move to the next cell; from the last cell, return to the buffer |
+| <kbd>Enter</kbd> | Commit and return to the buffer |
+| <kbd>Esc</kbd> | Discard the edit and return to the buffer |
+
+## Rebinding
+
+Keymaps live in `~/.config/zed/keymap.json`. Open it with
+`zed: open keymap` from the command palette.
+
+```json title="keymap.json"
+[
+  {
+    "context": "Editor && mode == full",
+    "bindings": {
+      "cmd-e": "markdown::ToggleLivePreview",
+      "cmd-shift-b": "typeset_preview::OpenLivePreview"
+    }
+  },
+  {
+    "context": "PdfViewer",
+    "bindings": {
+      "cmd-shift-c": "pdf_viewer::CopyDocumentText"
+    }
+  }
+]
+```
+
+Zed's keymap rules apply unchanged — see
+[Zed's key bindings documentation](https://zed.dev/docs/key-bindings) for
+contexts, precedence, and the `use_key_equivalents` option.
+
+<Callout title="Vim and Helix work here">
+Live preview restyles and conceals text in the real editor rather than
+replacing the view, so Vim mode, Helix mode, multi-cursor, and search behave
+normally inside rendered markdown.
+</Callout>

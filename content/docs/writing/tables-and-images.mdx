@@ -1,0 +1,62 @@
+---
+title: Tables & Images
+description: Widgets you edit directly — type in table cells, drag image corners, and drop back to source with the code button.
+icon: Table
+---
+
+Most of live preview hides syntax and gets out of the way. Tables and images
+go further: they become widgets you interact with, because editing a markdown
+table as text is miserable and resizing an image as text is impossible.
+
+## Tables
+
+A markdown table renders as a real table. Click a cell and type — the buffer
+updates underneath, pipes and alignment rows included, so the file on disk
+stays ordinary markdown that any other tool can read.
+
+Row and column handles let you drag a row or column to a new position; the
+one you're moving is outlined in place while the drag is active.
+
+<Callout title="Keys inside a cell">
+<kbd>Tab</kbd> commits the cell and moves to the next one — from the last cell
+it returns you to the buffer. <kbd>Enter</kbd> commits and returns to the
+buffer. <kbd>Esc</kbd> discards the edit and returns to the buffer.
+</Callout>
+
+## Images
+
+Click an image to select it. A border appears with a corner handle — drag it to
+resize. The width is written back into the source as Obsidian's `|width`
+suffix on the alt text:
+
+```md
+![A figure|480](attachments/figure-1.png)
+```
+
+Because the size lives in the file, it travels with the note instead of sitting
+in an editor-local database, and Obsidian reads it back.
+
+Images with no explicit width render at their natural size, capped at two
+thirds of the pane so a pasted screenshot doesn't swallow the note. Paths
+resolve relative to the note, so links into your
+[attachments folder](/writing/attachments) work the way they do in
+Obsidian and on GitHub.
+
+## Dropping to source
+
+Tables, images, and frontmatter don't reveal their source when the cursor
+touches them — a cursor inside a table cell means "edit the cell", not "edit
+the pipes". To see and edit the raw markdown, use the `</>` button on the
+widget. Press it again to go back to the rendered form.
+
+## Other block widgets
+
+Live preview also replaces:
+
+- **Horizontal rules** — drawn as a rule rather than three dashes
+- **Frontmatter** — collapsed into a compact block at the top of the note
+- **Task lists** — `- [ ]` and `- [x]` become clickable checkboxes
+- **Mermaid diagrams** and **math blocks** — see
+  [Math & Diagrams](/writing/math-and-diagrams)
+- **Embeds** — `![[Another note]]` pulls that note's content inline; see
+  [Wikilinks](/writing/wikilinks)

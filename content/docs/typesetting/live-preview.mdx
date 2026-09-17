@@ -1,0 +1,57 @@
+---
+title: Typst & LaTeX Preview
+description: Write in one pane, watch the PDF update in the other — a second after you stop typing.
+icon: Columns2
+---
+
+Open a `.typ` or `.tex` file and press the **Preview** button in the toolbar,
+or run `typeset preview: open live preview` from the command palette. Suzuri
+compiles the file and opens the resulting PDF in a split.
+
+From then on the loop is: **type → pause → the page updates.** Every save
+recompiles, and [autosave](/writing/live-preview#autosave) fires a second
+after you stop typing, so you never press a build key. The
+[PDF pane](/reading/pdf-viewer) notices the changed bytes and re-renders
+in place, keeping your scroll position.
+
+<Callout title="Start it from the project panel too">
+Right-click a `.typ` or `.tex` file in the project panel and choose the
+preview entry.
+</Callout>
+
+## What compiles what
+
+| File | Compiler | Result |
+| --- | --- | --- |
+| `.typ` | `typst` | PDF in a split |
+| `.tex` | The engine `latex_engine` selects, `latexmk` by default | PDF in a split |
+| `.html`, `.htm` | — | Opens in your system browser |
+
+HTML goes to a browser on purpose: there is no webview in the editor's UI
+framework, and a real browser renders HTML properly and keeps it interactive —
+better than any approximation Suzuri could draw.
+
+## If you have no compiler
+
+Compilers are discovered on your `PATH`. When nothing suitable is installed,
+the first preview *offers* to download a managed one rather than fetching it
+unannounced:
+
+- **Typst** — a managed `typst` binary
+- **LaTeX** — [TinyTeX](https://github.com/rstudio/tinytex), a prebuilt,
+  relocatable TeX Live. Packages a document needs and TinyTeX lacks are
+  installed on demand as you hit them.
+
+A compiler already on your `PATH` always wins, so an existing MacTeX or TeX
+Live installation is used as-is.
+
+## Errors
+
+A failed compile surfaces as a toast holding the compiler's own message, so
+you get the real error — line number included — rather than "build failed".
+
+## Citations
+
+Citations insert in the syntax the file wants: `\cite{key}` in `.tex`, `@key`
+in `.typ`. Both read the same `refs/refs.bib` your markdown notes cite. See
+[Citations](/writing/citations).

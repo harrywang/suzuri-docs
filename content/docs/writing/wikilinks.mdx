@@ -1,0 +1,67 @@
+---
+title: Wikilinks & Backlinks
+description: Obsidian-grade linking — completion, click-to-follow, backlinks as references, broken-link diagnostics, and inline embeds.
+icon: Link
+---
+
+Type `[[` in a markdown file and Suzuri completes note names. Follow a link
+with <kbd>Cmd</kbd>-click (<kbd>Ctrl</kbd>-click on Windows and Linux) or
+**Go to Definition**. Ask for **Find All References** on a note and you get its
+backlinks. Links that point nowhere show up as diagnostics, in the buffer and
+in the project diagnostics panel.
+
+None of this needs an extension. It is on for every markdown file in the
+project.
+
+## How it works
+
+Suzuri ships [markdown-oxide](https://github.com/Feel-ix-343/markdown-oxide), a
+personal-knowledge-management language server, and starts it for markdown
+buffers automatically. Because it speaks LSP, wikilinks reuse the editor
+machinery you already know:
+
+| You want | Use |
+| --- | --- |
+| Complete a note name | Type `[[` |
+| Follow a link | <kbd>Cmd</kbd>-click, or **Go to Definition** |
+| See backlinks | **Find All References** |
+| Find broken links | The diagnostics panel |
+| Rename a note everywhere | **Rename Symbol** |
+
+The server is downloaded on first use as a plain binary, so none of its code
+enters the Suzuri build. A `markdown-oxide` already on your `PATH` — from
+Homebrew or `cargo install` — always takes precedence, which is how you run a
+different version than the pinned one.
+
+## Embeds
+
+`![[Another note]]` embeds that note's content inline in live preview, rather
+than linking to it. Section embeds (`![[Note#Heading]]`) pull in just that
+section. Edit the embedded note and the embed updates.
+
+## Configuring the server
+
+markdown-oxide reads its own configuration file, and Suzuri also accepts LSP
+settings for it the usual way:
+
+```json title="settings.json"
+{
+  "lsp": {
+    "markdown-oxide": {
+      "initialization_options": {}
+    }
+  }
+}
+```
+
+To turn it off for a project, disable the language server for markdown:
+
+```json title="settings.json"
+{
+  "languages": {
+    "Markdown": {
+      "language_servers": ["!markdown-oxide"]
+    }
+  }
+}
+```

@@ -1,0 +1,96 @@
+---
+title: Citations
+description: Search your library and Zotero from the editor, insert a key, and open the PDF behind it — without leaving the window.
+icon: Quote
+---
+
+Press <kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>C</kbd> and a picker searches two
+places at once: the `.bib` library in your vault, and Zotero if it is running.
+Choose an entry and Suzuri inserts the citation at the cursor in whatever
+syntax the file wants.
+
+With the cursor on a cite key, <kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>O</kbd>
+opens the PDF behind it in a split, in Suzuri's own
+[PDF viewer](/reading/pdf-viewer).
+
+## Syntax per file type
+
+The format follows the file extension, the same way
+[typeset preview](/typesetting) picks its compiler:
+
+| File | Inserted |
+| --- | --- |
+| `.md` and everything else | `[@key; @other]` (Pandoc) |
+| `.tex`, `.latex`, `.ltx` | `\cite{key,other}` |
+| `.typ` | `@key`, or `#cite(label("key"))` when the key isn't a legal Typst label |
+
+Multi-select in the picker inserts several keys in one citation.
+
+## The vault owns its bibliography
+
+```json title="settings.json"
+{
+  "citations": {
+    "library": "refs/refs.bib"
+  }
+}
+```
+
+Every citation you insert is recorded in that one BibLaTeX file, relative to
+the project root. Pandoc, LaTeX, Typst, and Suzuri's own index all read it
+directly — there is no export step and nothing to keep in sync.
+
+This is deliberately not how most Zotero integrations work. They keep an
+exported `.bib` mirroring your *whole* library and let an add-on choose keys,
+which is where the familiar complaints come from: stale exports, and keys that
+drift under citations you already wrote. Here an entry is pulled from Zotero
+**once**, at insert time, under a key Suzuri chose and will never change.
+
+<Callout title="Key choice">
+When Better BibTeX has already assigned a portable key, Suzuri keeps it, so
+citations you wrote elsewhere still resolve. Otherwise it mints one and
+disambiguates against what the library already holds.
+</Callout>
+
+## Zotero
+
+Zotero must be running with **Settings → Advanced → "Allow other applications
+on this computer to communicate with Zotero"** ticked. Suzuri talks to its
+local API:
+
+```json title="settings.json"
+{
+  "citations": {
+    "zotero_url": "http://127.0.0.1:23119"
+  }
+}
+```
+
+When you insert a Zotero item, Suzuri fetches its BibLaTeX entry, appends it to
+your library, and — if Zotero has one — copies the attached PDF next to the
+library as `<key>.pdf`. That is the file
+<kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>O</kbd> opens later. A missing PDF is never
+a reason to lose the citation.
+
+## Completion and diagnostics
+
+Every `.bib` file in the project is indexed. Typing `@` in a citation context
+completes cite keys, and keys that resolve to no entry are styled as
+unresolved — but only once the index holds at least one entry, so a vault that
+never cites anything sees no red ink.
+
+## Formatted references
+
+Suzuri renders citations and reference lists with
+[hayagriva](https://github.com/typst/hayagriva), the CSL engine Typst uses.
+About a hundred styles ship with it — APA, IEEE, Chicago, and the rest. A
+document picks one in its frontmatter:
+
+```md title="paper.md"
+---
+title: A Paper
+csl: ieee
+---
+```
+
+Documents that name no style get APA.

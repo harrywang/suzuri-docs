@@ -1,0 +1,61 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+
+/*
+ * Suzuri palette, taken from assets/images/suzuri_logo.svg and the app's own
+ * pane colors: ink black, paper cream, vermilion accent.
+ */
+@theme {
+  --color-suzuri-ink: #17130f;
+  --color-suzuri-paper: #efe6d5;
+  --color-suzuri-vermilion: #c0472b;
+  --color-suzuri-gold: #b8872e;
+  --color-suzuri-pine: #2d6a5a;
+  --color-suzuri-indigo: #4a5fa5;
+
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
+:root {
+  --fd-layout-width: 1400px;
+
+  --color-fd-background: #faf9f7;
+  --color-fd-foreground: #1a1a1a;
+  --color-fd-primary: #c0472b;
+  --color-fd-accent-foreground: #c0472b;
+  --color-fd-ring: #c0472b;
+}
+
+.dark {
+  --color-fd-background: #131211;
+  --color-fd-foreground: #ece8e1;
+  --color-fd-primary: #e07a5f;
+  --color-fd-accent-foreground: #e07a5f;
+  --color-fd-ring: #e07a5f;
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+html > body[data-scroll-locked] {
+  margin-right: 0px !important;
+  --removed-body-scroll-bar-size: 0px !important;
+}
+
+/* Docs prose reads in Newsreader — Suzuri is a writing tool, so its docs
+   should look like the documents you write in it. Headings, code, and UI
+   chrome stay in the sans/mono stack. */
+#nd-page .prose p,
+#nd-page .prose li,
+#nd-page .prose blockquote {
+  font-family: var(--font-prose), ui-serif, Georgia, serif;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--color-fd-primary) 22%, transparent);
+}

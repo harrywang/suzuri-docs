@@ -1,0 +1,99 @@
+---
+title: Live Preview
+description: Markdown renders in place and reveals its source only where your cursor is — one pane, no split, no separate preview tab.
+icon: Eye
+---
+
+Open any `.md` file and Suzuri renders it in the editor itself. Syntax markers
+— `**`, `*`, `~~`, backticks, link targets, list bullets, heading prefixes —
+are hidden, and block elements become rendered widgets. Move the cursor into a
+construct and its raw markdown reappears so you can edit it.
+
+This is Obsidian's Live Preview behavior, implemented on top of the real
+editor rather than beside it. There is no second pane to keep in sync and no
+preview-mode toggle to forget: **what you see is the buffer**.
+
+## Reveal rules
+
+Two rules cover almost everything:
+
+- **Inline constructs** — bold, italic, strikethrough, inline code, links —
+  reveal when the selection *touches* them.
+- **Blocks** — headings, lists, rules, code fences — reveal when the selection
+  reaches their lines.
+
+Tables, images, and frontmatter are the exception. They are edited *through*
+their widgets, so a cursor landing on them would be ambiguous; they reveal
+their source only via the `</>` button on the widget. See
+[Tables & Images](/writing/tables-and-images).
+
+<Callout title="Search keeps headings rendered">
+A selection that came from search leaves heading prefixes concealed, so
+jumping through results doesn't make the document jump around as `##` markers
+pop in and out.
+</Callout>
+
+## Because it is the real editor
+
+Live preview writes decorations onto the editor rather than rendering its own
+view of the document. Everything the editor already does keeps working inside
+rendered text:
+
+- Vim and Helix modes, multi-cursor, and all your keybindings
+- Search and replace, including across a multi-buffer
+- LSP diagnostics, code actions, and hover
+- Selections, IME input, and accessibility
+
+## Headings
+
+Headings stay in the main editor and are restyled rather than replaced: font
+scale, wrapping width, and line height change, but the text is still editable
+text on a real line.
+
+```json title="settings.json"
+{
+  "markdown_live_preview": {
+    "heading_styles": {
+      "h1": { "font_size": 1.75, "font_weight": 600 },
+      "h2": { "font_size": 1.4, "font_weight": 600 },
+      "h3": { "font_size": 1.2, "font_weight": 600 },
+      "h4": { "font_size": 1.0, "font_weight": 600 },
+      "h5": { "font_size": 0.875, "font_weight": 600 },
+      "h6": { "font_size": 0.85, "font_weight": 600 }
+    }
+  }
+}
+```
+
+Font sizes multiply the editor's base font size; weights are CSS values from
+100 to 900.
+
+## Turning it off
+
+Per buffer, run **markdown: toggle live preview** from the command palette
+(<kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>) to see the raw markdown.
+
+Globally:
+
+```json title="settings.json"
+{
+  "markdown_live_preview": {
+    "enabled": false
+  }
+}
+```
+
+## Autosave
+
+Suzuri defaults to delay-based autosave — one second after you stop typing:
+
+```json title="settings.json"
+{
+  "autosave": { "after_delay": { "milliseconds": 1000 } }
+}
+```
+
+Notes are terminal artifacts with no build watchers, and agents read the vault
+from disk, so the buffer and the file should never diverge for long. This is
+also what drives [typeset preview](/typesetting): the compile loop is
+type → pause → page updates.

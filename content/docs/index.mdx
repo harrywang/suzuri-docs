@@ -1,0 +1,64 @@
+---
+title: What is Suzuri
+description: A writing environment inside a code editor — live-preview markdown, Typst and LaTeX, and a PDF pane, all over plain files on your own machine.
+icon: House
+---
+
+import { Download, Eye, FileCode, FileText, Link, PenLine, Settings } from 'lucide-react';
+
+Suzuri (硯) is Japanese for *inkstone* — the stone a scholar grinds ink on before
+writing begins. It is a modified build of [Zed](https://zed.dev) that adds a
+writing environment without giving up the code editor underneath.
+
+The premise is that research writing and coding are the same job. You read PDFs,
+take notes, run an experiment, cite a paper, and typeset a draft — and today that
+means four applications that do not share a file. Suzuri puts all of it over plain
+markdown in one window, on your own disk, where the agents you already code with
+can read and write the same files you do.
+
+## What it adds
+
+<Cards>
+
+<Card title="Writing" href="/writing" icon={<PenLine />}>
+Markdown renders in place and reveals its source when your cursor touches it —
+editable tables, resizable images, citation chips, wikilinks, and screenshots
+that attach themselves when you paste.
+</Card>
+
+<Card title="Reading" href="/reading" icon={<FileText />}>
+A native PDF viewer with continuous scroll, zoom, and real text selection. PDFs
+reload in place when they change on disk.
+</Card>
+
+<Card title="Typesetting" href="/typesetting" icon={<FileCode />}>
+Write Typst or LaTeX in one pane and watch the PDF update in the other. If you
+have no compiler installed, the first preview offers to fetch one.
+</Card>
+
+<Card title="Linking" href="/writing/wikilinks" icon={<Link />}>
+`[[wikilinks]]` with completion, ⌘-click follow, backlinks, and broken-link
+diagnostics — built in, with no extension to install.
+</Card>
+
+</Cards>
+
+## What it keeps
+
+Everything Zed does: LSP, tree-sitter, multi-buffer editing, terminals, git,
+Vim mode, the agent panel, and the rest of a fast, mature editor. Suzuri tracks
+Zed's `main` branch and merges upstream weekly, so improvements to the editor
+arrive here too.
+
+<Callout type="warn" title="Early software">
+Suzuri is early and in active development, built in the open and dogfooded
+daily. Expect sharp edges.
+</Callout>
+
+## Start here
+
+<Cards>
+  <Card title="Install Suzuri" href="/installation" icon={<Download />} />
+  <Card title="Live preview" href="/writing/live-preview" icon={<Eye />} />
+  <Card title="Settings reference" href="/reference/settings" icon={<Settings />} />
+</Cards>

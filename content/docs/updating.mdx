@@ -1,0 +1,37 @@
+---
+title: Updating
+description: Suzuri installs its own updates in the background from GitHub releases.
+icon: RefreshCw
+---
+
+Suzuri checks for new releases while it runs, downloads and installs them in the
+background, and then shows a **Restart to update** button in the title bar.
+**Suzuri → Check for Updates** does the same on demand.
+
+Updates come from Suzuri's own [GitHub
+releases](https://github.com/harrywang/suzuri/releases) — Zed's release server is
+never asked, so a Suzuri build never replaces itself with Zed.
+
+## Turning the background check off
+
+```json title="settings.json"
+{
+  "auto_update": false
+}
+```
+
+With auto-update off, **Check for Updates** still works when you ask for it.
+
+## Version numbers
+
+Suzuri's version is not the Zed version the build reports elsewhere. The Zed
+number tracks the upstream base this fork is built on; Suzuri's own releases are
+tagged `suzuri-v<version>` and move on their own cadence. The two number lines
+are unrelated.
+
+## Uninstalling
+
+Suzuri installs as an ordinary application: delete `Suzuri.app` on macOS, use
+Add/Remove Programs on Windows, or remove the extracted `suzuri.app` folder on
+Linux. Settings and logs live in Zed's standard data directory and can be
+removed separately.

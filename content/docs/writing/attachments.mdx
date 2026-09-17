@@ -1,0 +1,44 @@
+---
+title: Attachments
+description: Paste a screenshot or drop a file onto a note and it files itself beside the note with a link at the cursor.
+icon: Paperclip
+---
+
+Copy a screenshot, paste into a note, and Suzuri writes the image into your
+attachments folder and inserts the link at the cursor. Dropping files onto a
+markdown buffer does the same thing, instead of opening them as editor tabs.
+
+This is Obsidian's behavior, and it is the fastest way to get a figure out of
+a paper and into your notes.
+
+## Where files go
+
+Attachments land in a folder next to the note, named by:
+
+```json title="settings.json"
+{
+  "markdown_live_preview": {
+    "attachments_folder": "attachments"
+  }
+}
+```
+
+The path is relative to the *note's* folder, not the project root, so notes
+stay portable. Set it to `""` to store attachments directly beside the note.
+
+Name collisions are resolved by suffixing, so pasting twice never overwrites
+an earlier attachment.
+
+## What gets accepted
+
+Dropped files are filed as attachments only when every file in the drop is an
+accepted type. Anything else opens as an editor tab, as it normally would.
+
+| Kind | Extensions | Inserted as |
+| --- | --- | --- |
+| Images | `avif`, `bmp`, `gif`, `jpeg`, `jpg`, `png`, `svg`, `webp` | `![](...)` — renders inline |
+| Audio, video, PDF | `flac`, `m4a`, `mp3`, `ogg`, `wav`, `webm`, `3gp`, `mkv`, `mov`, `mp4`, `ogv`, `pdf` | `[](...)` — a link |
+
+Non-image attachments link rather than embed because neither live preview nor
+the markdown preview can render them inline. A linked PDF still opens in
+Suzuri's own [PDF viewer](/reading/pdf-viewer).

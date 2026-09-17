@@ -1,0 +1,5 @@
+{
+  "title": "Typesetting",
+  "icon": "FileCode",
+  "pages": ["live-preview", "latex-engines"]
+}

@@ -1,0 +1,100 @@
+---
+title: Settings
+description: Every setting Suzuri adds on top of Zed's, with its default.
+icon: Settings
+---
+
+Suzuri reads Zed's settings files, because it is a Zed build:
+
+| Scope | File |
+| --- | --- |
+| User | `~/.config/zed/settings.json` |
+| Project | `.zed/settings.json` in the project root |
+
+Open the user file with **Suzuri → Settings**, or `zed: open settings` from the
+command palette. Everything in
+[Zed's settings reference](https://zed.dev/docs/configuring-zed) applies here
+too. What follows is what Suzuri adds.
+
+## `markdown_live_preview`
+
+Obsidian-style [live preview](/writing/live-preview) for markdown buffers.
+
+```json title="settings.json"
+{
+  "markdown_live_preview": {
+    "enabled": true,
+    "heading_styles": {
+      "h1": { "font_size": 1.75, "font_weight": 600 },
+      "h2": { "font_size": 1.4, "font_weight": 600 },
+      "h3": { "font_size": 1.2, "font_weight": 600 },
+      "h4": { "font_size": 1.0, "font_weight": 600 },
+      "h5": { "font_size": 0.875, "font_weight": 600 },
+      "h6": { "font_size": 0.85, "font_weight": 600 }
+    },
+    "attachments_folder": "attachments"
+  }
+}
+```
+
+| Key | Default | What it does |
+| --- | --- | --- |
+| `enabled` | `true` | Render markdown inline in the editor. |
+| `heading_styles.h1`–`h6` | see above | Heading typography. `font_size` multiplies the editor's base font size; `font_weight` is a CSS value from 100 to 900. |
+| `attachments_folder` | `"attachments"` | Folder for [dropped and pasted attachments](/writing/attachments), relative to the note's folder. `""` stores them beside the note. |
+
+## `citations`
+
+The vault's bibliography and its [Zotero](/writing/citations#zotero) link.
+
+```json title="settings.json"
+{
+  "citations": {
+    "library": "refs/refs.bib",
+    "zotero_url": "http://127.0.0.1:23119"
+  }
+}
+```
+
+| Key | Default | What it does |
+| --- | --- | --- |
+| `library` | `"refs/refs.bib"` | The BibLaTeX file every inserted citation is recorded in, relative to the project root. Pandoc, LaTeX, Typst, and Suzuri's own index all read it directly. |
+| `zotero_url` | `"http://127.0.0.1:23119"` | Where Zotero's local API listens. Zotero must be running with **Settings → Advanced → "Allow other applications on this computer to communicate with Zotero"** ticked. |
+
+## `typeset_preview`
+
+Which engine compiles `.tex` files for
+[live preview](/typesetting/live-preview). See
+[Choosing a LaTeX Engine](/typesetting/latex-engines) for the full
+rundown.
+
+```json title="settings.json"
+{
+  "typeset_preview": {
+    "latex_engine": "auto"
+  }
+}
+```
+
+| Value | Meaning |
+| --- | --- |
+| `"auto"` | `latexmk` from `PATH`, falling back to Suzuri's managed TeX Live. **Default.** |
+| `"latexmk"` | Drive `latexmk`, which picks the engine the document asks for. |
+| `"pdflatex"`, `"lualatex"`, `"xelatex"` | A specific engine. |
+| `{ "external": { "command": "tectonic", "arguments": [] } }` | Any other program, run in the document's directory with the file name appended. |
+
+## Zed settings worth knowing here
+
+These are Zed's, but Suzuri changes their defaults or leans on them.
+
+```json title="settings.json"
+{
+  "autosave": { "after_delay": { "milliseconds": 1000 } },
+  "auto_update": true
+}
+```
+
+| Key | Suzuri default | Why |
+| --- | --- | --- |
+| `autosave` | `{ "after_delay": { "milliseconds": 1000 } }` | Notes are terminal artifacts with no build watchers, and agents read the vault from disk, so the buffer and the file shouldn't diverge. It is also what drives the typeset preview loop. |
+| `auto_update` | `true` | Background updates from Suzuri's GitHub releases. See [Updating](/updating). |
