@@ -38,6 +38,15 @@ flowchart LR
 ```
 ````
 
+That block draws as:
+
+<Mermaid
+  chart={`flowchart LR
+  notes[Notes] --> draft[Draft]
+  draft --> pdf[PDF]
+  refs[(refs.bib)] --> draft`}
+/>
+
 Nodes get accent colors even when the source specifies none. As with math,
 moving the cursor into the block reveals the source.
 

@@ -38,9 +38,21 @@ in `lucide-react`'s `icons` map — the build warns on unknown names (`Home` is
 Ordering is explicit; new pages need to be added to the list.
 
 Components available in MDX (`Callout`, `Cards`/`Card`, `Tabs`/`Tab`, `Steps`,
-`Files`, `Accordions`, `TypeTable`) are registered in `components/mdx.tsx`.
-`Card`'s `icon` prop takes JSX, not a name — import from `lucide-react` at the
-top of the MDX file.
+`Files`, `Accordions`, `TypeTable`, `Mermaid`) are registered in
+`components/mdx.tsx`. `Card`'s `icon` prop takes JSX, not a name — import from
+`lucide-react` at the top of the MDX file.
+
+`Mermaid` draws a diagram in the browser and follows the light/dark theme. It
+takes the diagram source as a `chart` prop rather than a fenced code block, so
+a ```` ```mermaid ```` fence still shows as source — which is what a page about
+Suzuri's own syntax usually wants:
+
+```mdx
+<Mermaid
+  chart={`flowchart LR
+  a --> b`}
+/>
+```
 
 ## Layout of the project
 
