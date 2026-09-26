@@ -5,9 +5,10 @@ icon: Quote
 ---
 
 Press <kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>C</kbd> and a picker searches two
-places at once: the `.bib` library in your vault, and Zotero if it is running.
-Choose an entry and Suzuri inserts the citation at the cursor in whatever
-syntax the file wants.
+places at once: the `.bib` files in your project, and Zotero if it is running.
+Each row carries a **Project** or **Zotero** badge, and the footer says what
+was searched and what Zotero answered. Choose an entry and Suzuri inserts the
+citation at the cursor in whatever syntax the file wants.
 
 With the cursor on a cite key, <kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>O</kbd>
 opens the PDF behind it in a split, in Suzuri's own
@@ -26,7 +27,7 @@ The format follows the file extension, the same way
 
 Multi-select in the picker inserts several keys in one citation.
 
-## The vault owns its bibliography
+## The project owns its bibliography
 
 ```json title="settings.json"
 {
@@ -76,15 +77,43 @@ a reason to lose the citation.
 
 Every `.bib` file in the project is indexed. Typing `@` in a citation context
 completes cite keys, and keys that resolve to no entry are styled as
-unresolved — but only once the index holds at least one entry, so a vault that
-never cites anything sees no red ink.
+unresolved — but only once the index holds at least one entry, so a project
+that never cites anything sees no red ink.
 
 ## Formatted references
 
-Suzuri renders citations and reference lists with
-[hayagriva](https://github.com/typst/hayagriva), the CSL engine Typst uses.
-About a hundred styles ship with it — APA, IEEE, Chicago, and the rest. A
-document picks one in its frontmatter:
+In Markdown, a citation you can read is what shows: a group whose keys all
+resolve renders as the in-text form of the note's citation style,
+`(Vaswani et al., 2017, p. 3)` in APA or `[1, p. 3]` in IEEE, drawn as a
+chip. Put the cursor on it and the source `[@key]` comes back for editing.
+A heading named **References**, **Bibliography** or **Works Cited** renders
+the reference list for every work the note cites, in the style's order.
+Hovering a chip shows the full reference and its in-text form.
+
+Suzuri renders with [hayagriva](https://github.com/typst/hayagriva), the CSL
+engine [Typst](https://typst.app) uses, so a style renders the same way here
+as in Typst, Zotero, pandoc or Word. In `.tex` and `.typ` files the compiler
+does the rendering, so their style is whatever the document declares.
+
+### Pandoc syntax that renders
+
+| You write | Reads as (APA) |
+| --- | --- |
+| `[@key]` | (Vaswani et al., 2017) |
+| `[@key, p. 3]`, `[@key, pp. 3-4]`, `[@key, chap. 2]` | (Vaswani et al., 2017, p. 3) |
+| `[@key; @other]` | (Knuth, 1984; Vaswani et al., 2017) |
+| `[-@key]` | (2017), for "Vaswani et al. [-@key]" |
+| `@key` in running text | Vaswani et al. (2017) |
+
+Locators pandoc knows are understood: `p.`, `pp.`, `chap.`, `sec.`, `fig.`,
+`vol.`, `no.`, `para.`, `n.`, `l.`, `table`, `pt.`. A group the renderer has
+no slot for, such as a prefix in `[see @key]`, or one with a key that does
+not resolve, keeps its plain key chips.
+
+### Choosing a style
+
+A document picks its style in the frontmatter; a document that names none
+gets APA:
 
 ```md title="paper.md"
 ---
@@ -93,4 +122,66 @@ csl: ieee
 ---
 ```
 
-Documents that name no style get APA.
+The value is either the **name of a bundled style** or the **path of a
+`.csl` file**.
+
+#### Bundled styles
+
+About eighty styles from the official CSL repository ship inside Suzuri,
+compiled in, under a hundred-odd names. The ones most people reach for:
+
+| Style | `csl:` value |
+| --- | --- |
+| APA 7th | `apa` |
+| IEEE | `ieee` |
+| Chicago author–date | `chicago-author-date` |
+| Chicago notes | `chicago-notes` |
+| MLA | `mla` |
+| Harvard | `harvard-cite-them-right` |
+| Vancouver | `vancouver` |
+| Nature | `nature` |
+| ACM | `association-for-computing-machinery` |
+| Springer | `springer-basic` |
+| Elsevier | `elsevier-harvard`, `elsevier-vancouver` |
+| GB/T 7714 | `gb-7714-2015-numeric`, `gb-7714-2015-author-date` |
+
+Short names such as `apa` are aliases; the long form
+(`american-psychological-association`) works too. The full list is
+[Typst's built-in style list](https://typst.app/docs/reference/model/bibliography/#parameters-style),
+which is the same archive.
+
+A name that is not bundled does not break the note: rendering falls back to
+APA, and a warning line under the References heading names the value that
+failed. That is how a typo like `csl: apaa` shows up.
+
+#### Your own `.csl` file
+
+For a journal that is not bundled, point `csl:` at a file:
+
+```md title="paper.md"
+---
+csl: styles/journal-of-marketing.csl
+---
+```
+
+A relative path is looked up next to the note first, then from the project
+root. Suzuri reads the file through the project, so a change to it takes
+effect on the next render. A file that is missing or does not parse falls
+back to APA with a warning under References, except when its name matches a
+bundled style (`styles/ieee.csl` with no such file renders as `ieee`), which
+keeps pandoc-style frontmatter working as is.
+
+Where to get the file:
+
+- The [Zotero Style Repository](https://www.zotero.org/styles) holds about
+  10,000 styles, one for nearly every journal. Search by journal name and
+  download the `.csl`.
+- The same files live in the
+  [citation-style-language/styles](https://github.com/citation-style-language/styles)
+  repository on GitHub.
+- For a style nobody has written, copy the closest one and edit it, or use
+  the [visual CSL editor](https://editor.citationstyles.org/) Zotero links
+  to.
+
+Only independent styles render. A *dependent* style, one that only points at
+a parent style, is reported as such; use the parent's file instead.
