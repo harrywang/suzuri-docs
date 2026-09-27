@@ -12,6 +12,11 @@ Every Suzuri feature is a named action, reachable from the command palette
 | Action | Default (macOS) | What it does |
 | --- | --- | --- |
 | `markdown::ToggleLivePreview` | — | Toggles [live preview](/writing/live-preview) in the current markdown buffer. |
+| `markdown::ToggleBold` | <kbd>Cmd</kbd>+<kbd>B</kbd> in markdown notes | Makes the selection or word under the cursor [bold](/writing/live-preview#formatting), or removes it. |
+| `markdown::ToggleItalic` | <kbd>Cmd</kbd>+<kbd>I</kbd> in markdown notes | Makes the selection or word italic, or removes it. |
+| `markdown::ToggleStrikethrough` | — | Strikes through the selection or word, or removes it. |
+| `markdown::ToggleInlineCode` | — | Formats the selection or word as inline code, or removes it. |
+| `markdown::InsertLink` | — | Turns the selection into a link, or a link back into its text. |
 | `citations::InsertCitation` | <kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>C</kbd> | Searches the vault library and Zotero, and [inserts a citation](/writing/citations) at the cursor. |
 | `citations::OpenSource` | <kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>O</kbd> | Opens the PDF behind the cite key under the cursor, in a split. |
 | `typeset_preview::OpenLivePreview` | — | [Previews](/typesetting/live-preview) the current file: Typst and LaTeX compile to a PDF in a split; HTML opens in the browser. |
