@@ -61,6 +61,25 @@ The vault's bibliography and its [Zotero](/writing/zotero) link.
 | `library` | `"refs/refs.bib"` | The BibLaTeX file every inserted citation is recorded in, relative to the project root. Pandoc, LaTeX, Typst, and Suzuri's own index all read it directly. |
 | `zotero_url` | `"http://127.0.0.1:23119"` | Where Zotero's local API listens. Zotero must be running with **Settings → Advanced → "Allow other applications on this computer to communicate with Zotero"** ticked. |
 
+## `markdown_export`
+
+How a note becomes a PDF, Word document, HTML page, LaTeX source or EPUB. See
+[Export](/writing/export).
+
+```json title="settings.json"
+{
+  "markdown_export": {
+    "pdf_engine": "typst"
+  }
+}
+```
+
+| Key | Default | What it does |
+| --- | --- | --- |
+| `pdf_engine` | `"typst"` | The program Pandoc typesets PDFs with. Typst is provisioned by Suzuri, so the default needs no TeX installation. `"xelatex"`, `"lualatex"`, `"pdflatex"` or `"context"` use a TeX Live you already have, for a template that pins one. |
+
+The bibliography an export cites from is `citations.library`, above.
+
 ## `typeset_preview`
 
 Which engine compiles `.tex` files for
