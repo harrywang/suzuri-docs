@@ -1,0 +1,117 @@
+---
+title: Export
+description: Turn a note into a PDF, Word document, HTML page, LaTeX source or EPUB, with its citations formatted, without leaving the editor.
+icon: Download
+---
+
+Open **File → Export** and pick a format, or run `markdown export: export to
+pdf` (or `docx`, `html`, `latex`, `epub`) from the command palette. The file
+lands beside the note with the same name and the new extension: `paper.md`
+becomes `paper.pdf`. A toast confirms it, with a **Show in Folder** button; a
+PDF also opens in a split in Suzuri's own [PDF viewer](/reading/pdf-viewer).
+
+The note is exported as it is in the editor, unsaved edits included.
+
+## Formats
+
+| Format | File | Notes |
+| --- | --- | --- |
+| PDF | `.pdf` | Typeset through Typst by default; see [PDF engine](#pdf-engine). |
+| Word | `.docx` | Highlights become highlighted runs; images are embedded. |
+| HTML | `.html` | One self-contained file: images are inlined, so it survives being mailed. |
+| LaTeX | `.tex` | A complete document, for a template you finish by hand. |
+| EPUB | `.epub` | Chapters follow the headings. |
+
+## How it works
+
+Export runs [Pandoc](https://pandoc.org). A `pandoc` already on your `PATH` is
+used as it is. When there is none, the first export *offers* to download a
+pinned release into Suzuri's data folder rather than fetching it unannounced,
+the same way [typeset preview](/typesetting/live-preview#if-you-have-no-compiler)
+handles compilers.
+
+### PDF engine
+
+Pandoc does not typeset PDFs itself; it hands the document to an engine. Suzuri
+uses **Typst** by default, because it already provisions Typst for live
+preview, so a PDF export on a machine with no TeX installation needs nothing
+more. To typeset through LaTeX instead, name an engine you have installed:
+
+```json title="settings.json"
+{
+  "markdown_export": {
+    "pdf_engine": "xelatex"
+  }
+}
+```
+
+`xelatex`, `lualatex`, `pdflatex` and `context` are understood. A conference
+template that pins an engine is the usual reason to switch.
+
+## Citations come out formatted
+
+When the project's bibliography exists (`citations.library`, `refs/refs.bib`
+by default), every `[@key]` in the note is resolved against it and a
+**References** heading gets the reference list, formatted in the style the
+note names in its frontmatter:
+
+```md title="paper.md"
+---
+title: A Paper
+csl: ieee
+---
+```
+
+The rules are the ones [Citations](/writing/citations#choosing-a-style)
+describes. A bundled style name is used as is. A `.csl` file is looked for
+next to the note and then from the project root, and handed to Pandoc
+directly. A name that is not bundled, or a file that is missing, falls back
+the same way the preview does, so the exported references never come out in
+a style the note did not ask for. A note that names no style gets APA.
+
+<Callout title="Same style on screen and on paper">
+The preview renders citations with the CSL engine Typst uses; the export
+hands the very same style, re-serialized, to Pandoc's own CSL processor. What
+you see in the editor is what the co-author gets.
+</Callout>
+
+## What happens to the vault's markdown
+
+Pandoc reads standard markdown and has never heard of a vault's extensions.
+Handed the note unchanged it would leave a wikilink as literal brackets, flatten
+a callout into an unmarked quote, and read a tag at the start of a line as a
+heading. So the note is rewritten before Pandoc sees it:
+
+| You wrote | The export gets |
+| --- | --- |
+| `[[Note]]`, `[[Note\|alias]]`, `[[Note#Heading]]` | The display text. The vault does not travel with the file, so a link to a note that will not be beside the output would be dead everywhere. |
+| `![[Section]]`, `![[Section#Heading]]` | The note, or that heading's section, spliced in, recursively. A paper assembled from section notes exports as one document. |
+| `![[figure.png]]`, `![[figure.png\|320]]` | An image, with the width carried over. |
+| `![[paper.pdf]]` and other non-image attachments | A link. |
+| `> [!warning] Title` | A quote whose first line is **Title** in bold, which survives every output format. |
+| `#tag` | Escaped, so it stays text rather than becoming a heading. |
+| `![alt\|640](figure.png)` | `![alt](figure.png){width=640}`, Pandoc's own width syntax. |
+| `==highlight==` | Kept; Pandoc's `mark` extension renders it. |
+| `[@key]`, `[-@key]`, `@key` | Untouched. It is Pandoc's own syntax. |
+| Code spans and fenced blocks | Never rewritten. |
+
+An embed whose note cannot be found is left as its name and listed in the
+success toast, so a missing section is something you learn about rather than
+discover later in the PDF.
+
+The rewritten markdown and the citation style are staged in a temporary
+folder, never beside the note, so an export adds nothing to the vault but the
+output.
+
+## After a PDF export
+
+The PDF opens in a split, and that split becomes the active pane. To export
+the same note again, click back into the note first; an export command with a
+PDF in front tells you to open a markdown note.
+
+## Errors
+
+A failed export shows Pandoc's own message in a toast, and writes it to the
+log as well (`zed: open log`), so a message that vanished can still be read.
+The usual causes are an image path Pandoc cannot resolve, or a LaTeX engine
+named in `pdf_engine` that is not installed.
