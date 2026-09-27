@@ -55,23 +55,14 @@ disambiguates against what the library already holds.
 
 ## Zotero
 
-Zotero must be running with **Settings → Advanced → "Allow other applications
-on this computer to communicate with Zotero"** ticked. Suzuri talks to its
-local API:
-
-```json title="settings.json"
-{
-  "citations": {
-    "zotero_url": "http://127.0.0.1:23119"
-  }
-}
-```
+Zotero must be running with its local API turned on. [Zotero](/writing/zotero)
+covers setup, how keys are chosen, where PDFs go, and what the picker's footer
+means when Zotero can't be reached.
 
 When you insert a Zotero item, Suzuri fetches its BibLaTeX entry, appends it to
-your library, and — if Zotero has one — copies the attached PDF next to the
+your library, and, if Zotero has one, copies the attached PDF next to the
 library as `<key>.pdf`. That is the file
-<kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>O</kbd> opens later. A missing PDF is never
-a reason to lose the citation.
+<kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>O</kbd> opens later.
 
 ## Completion and diagnostics
 

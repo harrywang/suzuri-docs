@@ -1,0 +1,157 @@
+---
+title: Zotero
+description: Connect Suzuri to the Zotero on your machine, cite from your whole library, and get each paper's PDF copied into the project.
+icon: Library
+---
+
+Suzuri reads your Zotero library through the local API built into
+Zotero. You don't need an add-on, an API key or an exported `.bib` file.
+Zotero just has to be running on the same computer.
+
+## Setup
+
+<Steps>
+<Step>
+
+### Install a current Zotero
+
+Any current release works. The local API was added in Zotero 7, so only
+versions older than that lack it. Check **Zotero → About Zotero**, and update
+from [zotero.org](https://www.zotero.org/download/) if yours is older.
+
+</Step>
+<Step>
+
+### Turn on the local API
+
+In Zotero, open **Settings → Advanced** and tick **"Allow other applications
+on this computer to communicate with Zotero"**. The setting is off by default.
+Until you turn it on, Zotero refuses every request from Suzuri.
+
+</Step>
+<Step>
+
+### Try it
+
+Keep Zotero open, open a note in Suzuri, and press
+<kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>C</kbd>. Type two or more characters of a
+title, an author or a year. Results from your library show a **Zotero**
+badge, and the footer shows how many came back, for example
+`No project matches · 3 from Zotero`.
+
+</Step>
+</Steps>
+
+## Citing from Zotero
+
+The [citation picker](/writing/citations) searches two sources as you type:
+
+- **Project**: entries already in your project's `.bib` files. These show
+  first and appear straight away.
+- **Zotero**: top-level items whose title, creators or year match. They
+  appear after a short pause once the query is two characters long, up to
+  20 at a time, most recently modified first.
+
+If a Zotero item is already in your project, the picker leaves it out of the
+Zotero results. It counts as already in the project when it has the same
+citation key or the same title. That way you cite the existing entry instead
+of adding it a second time.
+
+When you pick a Zotero item, Suzuri does three things before it inserts the
+citation:
+
+1. **Fetches the entry** as BibLaTeX from Zotero.
+2. **Appends it** to the project library (`refs/refs.bib` by default) under
+   a key that won't change later (see below). Entries already in the file
+   stay exactly as they are, including hand edits and odd spacing. If the
+   library doesn't parse, for example because you're halfway through editing
+   it, Suzuri stops without writing to it.
+3. **Copies the PDF**, if the item has one, next to the library as
+   `<key>.pdf`. Suzuri drops the `file` field from the entry, because it
+   points at a path in your Zotero storage that only exists on this machine.
+   A PDF that's missing or can't be read is logged, and the citation goes in
+   anyway.
+
+You can select several items at once, from either source, to insert them in
+one citation.
+
+<Files>
+  <Folder name="my-paper" defaultOpen>
+    <File name="paper.md" />
+    <Folder name="refs" defaultOpen>
+      <File name="refs.bib" />
+      <File name="vaswani2017attention.pdf" />
+      <File name="lovelace2026skillsbench.pdf" />
+    </Folder>
+  </Folder>
+</Files>
+
+After this the project doesn't depend on Zotero. Pandoc, LaTeX, Typst and
+Suzuri all read `refs.bib` directly. Another person can clone the project and
+build it without Zotero, and closing Zotero doesn't affect citations you've
+already written.
+
+## Citation keys
+
+Zotero stores a citation key for each item, but Zotero never generates one.
+Suzuri picks the key once, when the entry is first added, and never changes
+it:
+
+- If **[Better BibTeX](https://retorque.re/zotero-better-bibtex/)** has given
+  the item a key, and that key works everywhere, Suzuri keeps it. Citations
+  you wrote in other tools keep working.
+- Otherwise Suzuri makes one from the first author's surname, the year and
+  the first meaningful word of the title, such as `vaswani2017attention`.
+  Accented letters become their plain form (`Müller` becomes `muller`), and
+  words like "a", "the" and "of" are skipped.
+- If that key is already taken, Suzuri adds a letter: `vaswani2017attentiona`,
+  then `…b`, and so on.
+
+A key "works everywhere" when pandoc, Typst and BibTeX all accept it as is:
+only ASCII letters and digits, with `_` or `-` allowed in the middle but not
+at the start or end. Better BibTeX keys sometimes end in a period or contain
+a slash, which breaks Typst. Suzuri doesn't use those keys and makes its own
+instead.
+
+<Callout title="Better BibTeX is optional">
+Suzuri doesn't need Better BibTeX. Install it only if you already use its
+keys in other documents and want Suzuri to reuse them.
+</Callout>
+
+## Opening the PDF
+
+Put the cursor on a cite key and press <kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>O</kbd>.
+Suzuri opens `refs/<key>.pdf` in a split, in its own
+[PDF viewer](/reading/pdf-viewer), so you can read the source next to your
+draft.
+
+The file is Suzuri's copy, not the one in Zotero's storage. Annotations you
+make in Zotero's reader don't show up in it, and changes to it don't go back
+to Zotero. If an item had no PDF when you cited it, attach one in Zotero and
+save it as `refs/<key>.pdf` yourself. Suzuri doesn't copy it again for an
+entry that's already in the library.
+
+## Troubleshooting
+
+The picker's footer shows what went wrong with Zotero. If Zotero couldn't be
+reached, the footer message says why.
+
+| Footer says | What to do |
+| --- | --- |
+| *Zotero is not running, so only the project's library was searched.* | Start Zotero. If it is already running on a non-default port, set [`citations.zotero_url`](/reference/settings) to match. |
+| *Zotero's local API is off…* | Tick **Settings → Advanced → "Allow other applications on this computer to communicate with Zotero"**. |
+| *type two or more characters to search Zotero too* | Nothing is wrong. Suzuri doesn't send one-character queries to Zotero. |
+| *no Zotero matches* | Zotero matched nothing, or everything it matched is already in the project. |
+| *Zotero answered 4xx/5xx: …* | Zotero returned an error. The message after the colon is Zotero's own. |
+
+Some other things you might see:
+
+- **"No PDF for @key in refs/."** when you press
+  <kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>O</kbd> means the item had no PDF
+  attachment in Zotero, or Zotero couldn't locate the file. Linked files
+  that have moved, and attachments stored only online, are common causes.
+- **A Zotero item you expect isn't listed.** The picker only searches
+  top-level items by title, creator and year. It doesn't search notes,
+  attachments, tags or full text.
+- **A new entry wasn't written.** Check that `refs.bib` still parses. Suzuri
+  won't write to a library it can't read.
