@@ -32,7 +32,8 @@ Obsidian-style [live preview](/writing/live-preview) for markdown buffers.
       "h5": { "font_size": 0.875, "font_weight": 600 },
       "h6": { "font_size": 0.85, "font_weight": 600 }
     },
-    "attachments_folder": "attachments"
+    "attachments_folder": "attachments",
+    "word_count": true
   }
 }
 ```
@@ -42,6 +43,7 @@ Obsidian-style [live preview](/writing/live-preview) for markdown buffers.
 | `enabled` | `true` | Render markdown inline in the editor. |
 | `heading_styles.h1`–`h6` | see above | Heading typography. `font_size` multiplies the editor's base font size; `font_weight` is a CSS value from 100 to 900. |
 | `attachments_folder` | `"attachments"` | Folder for [dropped and pasted attachments](/writing/attachments), relative to the note's folder. `""` stores them beside the note. |
+| `word_count` | `true` | Show a [word count](/writing/live-preview#word-count) in the status bar for markdown notes. Frontmatter, code, math, cite keys and the reference list are not counted. |
 
 ## `citations`
 

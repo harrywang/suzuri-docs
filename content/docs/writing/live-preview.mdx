@@ -68,6 +68,51 @@ text on a real line.
 Font sizes multiply the editor's base font size; weights are CSS values from
 100 to 900.
 
+## Formatting
+
+Live preview hides the asterisks, so you should not have to type them.
+<kbd>Cmd</kbd>+<kbd>B</kbd> makes text bold and <kbd>Cmd</kbd>+<kbd>I</kbd>
+makes it italic. **Document → Format** also has strikethrough, inline code,
+and link. Every one is a toggle: run it again on formatted text and the
+formatting comes off.
+
+| With | The command |
+| --- | --- |
+| A selection | Wraps it, or unwraps it if it is already formatted. Spaces at its edges stay outside the markers, and a selection across paragraphs is wrapped paragraph by paragraph. |
+| The cursor in a word | Applies to that word, and leaves the cursor where it was. |
+| The cursor between words | Inserts an empty pair to type into; running it again removes the pair. |
+
+Bold and italic nest: italic on bold text makes it `***both***`, and bold on
+that leaves it italic. **Link** turns a selection into `[text]()` with the
+cursor where the address goes, a selected URL into `[](url)` with the cursor
+on the label, and a selected link back into its text.
+
+The commands edit the markdown source, so the note stays plain text that
+every other tool reads. <kbd>Cmd</kbd>+<kbd>B</kbd> and
+<kbd>Cmd</kbd>+<kbd>I</kbd> only format inside markdown notes; elsewhere they
+keep Zed's meaning (toggle the left dock, signature help). On Linux and
+Windows they are <kbd>Ctrl</kbd>+<kbd>B</kbd> and <kbd>Ctrl</kbd>+<kbd>I</kbd>,
+except in Vim's normal mode, where those keys stay Vim motions.
+
+## Word count
+
+A markdown note shows its word count in the status bar, and with text
+selected, how much of the total the selection is: `120 of 4,310 words`.
+Hovering it gives a reading time.
+
+It counts what a reader of the finished paper would read, the way a journal
+does. Not counted:
+
+- frontmatter, fenced code, and math
+- cite keys such as `[@vaswani2017]`, and the reference list under a
+  **References**, **Bibliography** or **Works Cited** heading
+- link addresses (the link text counts), images, embeds, tags, footnote
+  markers, and HTML comments
+
+Each Chinese, Japanese, or Korean character counts as one word, since those
+scripts have no spaces between words. Right-click the count to hide it, or
+set `markdown_live_preview.word_count` to `false`.
+
 ## Turning it off
 
 Per buffer, choose **Document → Toggle Live Preview**, or run **markdown:
