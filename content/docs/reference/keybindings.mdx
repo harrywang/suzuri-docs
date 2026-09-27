@@ -7,6 +7,21 @@ icon: Keyboard
 Every Suzuri feature is a named action, reachable from the command palette
 (<kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>) and bindable like any other.
 
+## The Document menu
+
+The menu bar's **Document** menu, between **Run** and **Window**, collects
+the actions that work on the current note or file, each with its shortcut.
+
+| Item | Action |
+| --- | --- |
+| Insert Citation… | `citations::InsertCitation` |
+| Open Citation Source | `citations::OpenSource` |
+| Toggle Live Preview | `markdown::ToggleLivePreview` |
+| Preview Typst or LaTeX | `typeset_preview::OpenLivePreview` |
+| Export → PDF, Word, HTML, LaTeX, EPUB | `markdown_export::ExportTo*` |
+
+**Export** is also under **File**.
+
 ## Suzuri actions
 
 | Action | Default (macOS) | What it does |
