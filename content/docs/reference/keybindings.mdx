@@ -14,13 +14,18 @@ the actions that work on the current note or file, each with its shortcut.
 
 | Item | Action |
 | --- | --- |
+| Format → Heading 1 to Heading 6, Body | `markdown::ToggleHeading1` to `ToggleHeading6`, `markdown::ClearHeading` |
+| Format → Bold, Italic, Strikethrough, Inline Code | `markdown::ToggleBold`, `ToggleItalic`, `ToggleStrikethrough`, `ToggleInlineCode` |
+| Format → Link | `markdown::InsertLink` |
 | Insert Citation… | `citations::InsertCitation` |
 | Open Citation Source | `citations::OpenSource` |
-| Toggle Live Preview | `markdown::ToggleLivePreview` |
-| Preview Typst or LaTeX | `typeset_preview::OpenLivePreview` |
 | Export → PDF, Word, HTML, LaTeX, EPUB | `markdown_export::ExportTo*` |
 
-**Export** is also under **File**.
+**Export** is also under **File**. An item is greyed out when it cannot apply
+to the current file: **Format** outside markdown notes, **Insert Citation**
+in a file that is not saved in the project, **Open Citation Source** unless
+the cursor is on a cite key, and **Export** unless the current tab is a saved
+markdown note.
 
 ## Suzuri actions
 
@@ -32,6 +37,8 @@ the actions that work on the current note or file, each with its shortcut.
 | `markdown::ToggleStrikethrough` | — | Strikes through the selection or word, or removes it. |
 | `markdown::ToggleInlineCode` | — | Formats the selection or word as inline code, or removes it. |
 | `markdown::InsertLink` | — | Turns the selection into a link, or a link back into its text. |
+| `markdown::ToggleHeading1` to `ToggleHeading6` | <kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>1</kbd> to <kbd>6</kbd> in markdown notes | Makes the lines in the selection a [heading](/writing/live-preview#formatting) of that level, or body text if they already are one. |
+| `markdown::ClearHeading` | <kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>0</kbd> in markdown notes | Turns the headings in the selection back into body text. |
 | `citations::InsertCitation` | <kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>C</kbd> | Searches the vault library and Zotero, and [inserts a citation](/writing/citations) at the cursor. |
 | `citations::OpenSource` | <kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>O</kbd> | Opens the PDF behind the cite key under the cursor, in a split. |
 | `typeset_preview::OpenLivePreview` | — | [Previews](/typesetting/live-preview) the current file: Typst and LaTeX compile to a PDF in a split; HTML opens in the browser. |

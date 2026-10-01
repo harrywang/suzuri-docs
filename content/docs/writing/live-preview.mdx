@@ -72,9 +72,9 @@ Font sizes multiply the editor's base font size; weights are CSS values from
 
 Live preview hides the asterisks, so you should not have to type them.
 <kbd>Cmd</kbd>+<kbd>B</kbd> makes text bold and <kbd>Cmd</kbd>+<kbd>I</kbd>
-makes it italic. **Document → Format** also has strikethrough, inline code,
-and link. Every one is a toggle: run it again on formatted text and the
-formatting comes off.
+makes it italic. **Document → Format** also has headings, strikethrough,
+inline code, and link. Every one is a toggle: run it again on formatted text
+and the formatting comes off.
 
 | With | The command |
 | --- | --- |
@@ -87,12 +87,29 @@ that leaves it italic. **Link** turns a selection into `[text]()` with the
 cursor where the address goes, a selected URL into `[](url)` with the cursor
 on the label, and a selected link back into its text.
 
+**Heading 1** to **Heading 6**, at the top of **Document → Format**, turn
+every line the selection touches into a heading of that level, replacing the
+level it had. Choosing a line's current level again turns it back into body
+text, and **Body** does that for any level. Blank lines inside a selection
+stay blank, and a `#tag` at the start of a line is left alone.
+
+| Command | macOS | Linux |
+| --- | --- | --- |
+| Heading 1 to Heading 6 | <kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>1</kbd> to <kbd>6</kbd> | <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>1</kbd> to <kbd>6</kbd> |
+| Body | <kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>0</kbd> | <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>0</kbd> |
+
+These are Google Docs' heading shortcuts. Windows has none by default:
+<kbd>Ctrl</kbd>+<kbd>Alt</kbd> is <kbd>AltGr</kbd> there, which types
+characters such as `}` on many keyboard layouts. Use the menu, or
+[bind your own](/reference/keybindings#rebinding).
+
 The commands edit the markdown source, so the note stays plain text that
-every other tool reads. <kbd>Cmd</kbd>+<kbd>B</kbd> and
-<kbd>Cmd</kbd>+<kbd>I</kbd> only format inside markdown notes; elsewhere they
-keep Zed's meaning (toggle the left dock, signature help). On Linux and
-Windows they are <kbd>Ctrl</kbd>+<kbd>B</kbd> and <kbd>Ctrl</kbd>+<kbd>I</kbd>,
-except in Vim's normal mode, where those keys stay Vim motions.
+every other tool reads. They only work in markdown notes, and the **Format**
+menu is greyed out everywhere else. <kbd>Cmd</kbd>+<kbd>B</kbd> and
+<kbd>Cmd</kbd>+<kbd>I</kbd> likewise keep Zed's meaning outside markdown
+(toggle the left dock, signature help). On Linux and Windows they are
+<kbd>Ctrl</kbd>+<kbd>B</kbd> and <kbd>Ctrl</kbd>+<kbd>I</kbd>, except in Vim's
+normal mode, where those keys stay Vim motions.
 
 ## Word count
 
@@ -115,8 +132,7 @@ set `markdown_live_preview.word_count` to `false`.
 
 ## Turning it off
 
-Per buffer, choose **Document → Toggle Live Preview**, or run **markdown:
-toggle live preview** from the command palette
+Per buffer, run **markdown: toggle live preview** from the command palette
 (<kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>), to see the raw markdown.
 
 Globally:
