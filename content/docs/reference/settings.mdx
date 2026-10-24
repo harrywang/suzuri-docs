@@ -4,17 +4,47 @@ description: Every setting Suzuri adds on top of Zed's, with its default.
 icon: Settings
 ---
 
-Suzuri reads Zed's settings files, because it is a Zed build:
+Suzuri uses Zed's settings format, in its own files:
 
 | Scope | File |
 | --- | --- |
-| User | `~/.config/zed/settings.json` |
-| Project | `.zed/settings.json` in the project root |
+| User | `~/.config/suzuri/settings.json` (Windows: `%APPDATA%\Suzuri\settings.json`) |
+| Project | `.zed/settings.json` in the project root, shared with Zed |
 
 Open the user file with **Suzuri → Settings**, or `zed: open settings` from the
 command palette. Everything in
 [Zed's settings reference](https://zed.dev/docs/configuring-zed) applies here
 too. What follows is what Suzuri adds.
+
+## Importing Zed settings
+
+Suzuri and Zed keep separate settings, so changing one never changes the
+other. To start from your Zed setup, click **Zed** under **Import Settings** on
+the welcome page, or run `zed: import zed settings` from the command palette.
+It copies Zed's `settings.json`, `keymap.json`, `tasks.json`, themes, and
+snippets into Suzuri's folder. Files it replaces are kept with a
+`.before-zed-import` suffix. Extensions are not copied; install the ones you
+want from the extensions page.
+
+Before version 0.6.0, Suzuri shared Zed's folders. The first launch of a newer
+version copies that state (settings, keymap, themes, open windows, agent
+threads, extensions) into Suzuri's own folders and leaves Zed's untouched.
+
+API keys and sign-in are not shared either. Suzuri keeps them in the system
+keychain under its own names, and importing Zed's settings does not bring Zed's
+keys, so enter them once in Suzuri's agent settings. Versions before 0.6.0
+kept Suzuri's keys in a plain-text file, `~/.config/zed/development_credentials`;
+a newer version moves them into the keychain on first launch. That old file is
+no longer read, and you can delete it once you no longer need to go back to an
+older version.
+
+To keep sharing one settings folder with Zed instead, replace Suzuri's with a
+link to Zed's while Suzuri is closed:
+
+```sh
+mv ~/.config/suzuri ~/.config/suzuri.bak
+ln -s ~/.config/zed ~/.config/suzuri
+```
 
 ## `markdown_live_preview`
 
