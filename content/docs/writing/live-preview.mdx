@@ -159,3 +159,18 @@ Notes are terminal artifacts with no build watchers, and agents read the vault
 from disk, so the buffer and the file should never diverge for long. This is
 also what drives [typeset preview](/typesetting): the compile loop is
 type → pause → page updates.
+
+To save only when you choose, open **Settings → Editor → Auto Save** and set
+**Auto Save Mode** to **Off**, or in `settings.json`:
+
+```json title="settings.json"
+{
+  "autosave": "off"
+}
+```
+
+Changes then stay in the buffer until you press <kbd>Cmd</kbd>+<kbd>S</kbd>
+(<kbd>Ctrl</kbd>+<kbd>S</kbd> on Linux). Two modes sit in between:
+`"on_focus_change"` saves when you leave the file, and `"on_window_change"`
+saves when you leave the Suzuri window. Autosave is one setting for every
+file; it cannot be set per language or per project.
