@@ -117,5 +117,5 @@ These are Zed's, but Suzuri changes their defaults or leans on them.
 
 | Key | Suzuri default | Why |
 | --- | --- | --- |
-| `autosave` | `{ "after_delay": { "milliseconds": 1000 } }` | Notes are terminal artifacts with no build watchers, and agents read the vault from disk, so the buffer and the file shouldn't diverge. It is also what drives the typeset preview loop. |
+| `autosave` | `{ "after_delay": { "milliseconds": 1000 } }` | Notes are terminal artifacts with no build watchers, and agents read the vault from disk, so the buffer and the file shouldn't diverge. It is also what drives the typeset preview loop. Set `"off"` to save, and recompile previews, only when you press <kbd>Cmd</kbd>+<kbd>S</kbd>. |
 | `auto_update` | `true` | Background updates from Suzuri's GitHub releases. See [Updating](/updating). |
