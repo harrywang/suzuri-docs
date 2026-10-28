@@ -37,8 +37,13 @@ Almost everything else in the repository — 243 crates — is upstream Zed.
 - **Your Zed knowledge transfers.** Settings, keymaps, themes, extensions,
   tasks, the agent panel, remote development: all of it works the way Zed
   documents it.
-- **Config paths are Zed's.** `~/.config/zed/settings.json` and
-  `.zed/settings.json`. Suzuri does not fork them.
+- **Suzuri keeps its own settings and data**, separate from Zed's, so the two
+  apps can be set up differently: `~/.config/suzuri/settings.json` on macOS
+  and Linux, `%APPDATA%\Suzuri\settings.json` on Windows. Project settings still live
+  in `.zed/settings.json`, which Zed and Suzuri both read. See
+  [Importing Zed settings](/reference/settings#importing-zed-settings).
+- **`zed://` links open Zed.** Suzuri answers `suzuri://` links instead, such
+  as `suzuri://settings/theme`, so the two apps never compete for a link.
 - **Updates come from Suzuri's releases**, not Zed's. See
   [Updating](/updating).
 - **Bugs in shared code are usually upstream bugs.** They get fixed in Zed and
