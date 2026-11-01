@@ -76,6 +76,15 @@ Inside a [table cell](/writing/tables-and-images):
 | <kbd>Enter</kbd> | Commit and return to the buffer |
 | <kbd>Esc</kbd> | Discard the edit and return to the buffer |
 
+With [table cells, a row, or a column selected](/writing/tables-and-images#selecting-and-copying-cells):
+
+| Key | Effect |
+| --- | --- |
+| <kbd>Cmd</kbd>+<kbd>C</kbd> | Copy as tab-separated text |
+| <kbd>Cmd</kbd>+<kbd>X</kbd> | Copy, then empty the cells (or remove the row or column) |
+| <kbd>Delete</kbd> / <kbd>Backspace</kbd> | Empty the cells (or remove the row or column) |
+| <kbd>Esc</kbd> | Clear the selection |
+
 ## Rebinding
 
 Keymaps live in `~/.config/suzuri/keymap.json`. Open it with
