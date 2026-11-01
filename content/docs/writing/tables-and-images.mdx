@@ -29,6 +29,25 @@ it returns you to the buffer. <kbd>Enter</kbd> commits and returns to the
 buffer. <kbd>Esc</kbd> discards the edit and returns to the buffer.
 </Callout>
 
+### Selecting and copying cells
+
+Press in a cell and drag to another to select every cell between them. The
+selection is outlined, and dragging back shrinks it. A plain click without a
+drag still edits the cell.
+
+With cells selected:
+
+- <kbd>Cmd</kbd>+<kbd>C</kbd> copies them as tab-separated rows, so pasting
+  into Google Sheets, Excel, or Numbers puts each one in its own cell.
+- <kbd>Cmd</kbd>+<kbd>X</kbd> copies them, then empties them.
+- <kbd>Delete</kbd> or <kbd>Backspace</kbd> empties them. The table keeps its
+  rows and columns; only the text goes.
+- <kbd>Esc</kbd>, or clicking in the text, clears the selection.
+
+Clicking a row or column handle selects that whole row or column. Copy and Cut
+work on it the same way, and <kbd>Delete</kbd> removes the row or column
+itself. A copied column comes out one cell per line, header first.
+
 ## Images
 
 Click an image to select it. A border appears with a corner handle — drag it to
