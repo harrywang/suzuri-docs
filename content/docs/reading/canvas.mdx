@@ -1,0 +1,56 @@
+---
+title: Canvas
+description: Open Obsidian-style .canvas files as a map of notes, text, images, and links, joined by arrows. Agents write the file; the canvas follows it.
+icon: Workflow
+---
+
+Open a `.canvas` file and it shows as a canvas, not as JSON: cards for your
+notes, text, images, and links, laid out in space and joined by arrows. It is
+the [JSON Canvas](https://jsoncanvas.org) format Obsidian's Canvas uses, so a
+canvas made in Obsidian opens here unchanged.
+
+The viewer is read-only. The file is meant to be generated and revised by an
+agent, and the canvas updates as soon as the file changes on disk.
+
+## What it shows
+
+- **Note cards** preview the note they point to, without its frontmatter; a
+  card that names a `#heading` shows just that section
+- **Text cards** render their markdown
+- **Image cards** show the image; other files show their icon and name
+- **Link cards** show the URL
+- **Groups** frame the cards inside them, with a label
+- **Arrows** with labels, in any of the six preset colors or a hex color
+
+Note cards follow edits to their notes, so a note you are writing in another
+tab stays current on the canvas.
+
+## Moving around
+
+- Drag, or scroll with two fingers, to pan
+- Pinch, or <kbd>Cmd</kbd>+scroll, to zoom around the pointer
+- Click a note or file card to open it; click a link card to open it in the
+  browser
+- Use the controls in the bottom-right corner to zoom out, zoom in, or fit the
+  whole canvas, which is also how every canvas opens
+
+## Letting an agent build it
+
+Because the canvas is a plain JSON file, any agent that can write files can lay
+one out. Ask for what you want to see, for example:
+
+> Make `lit-map.canvas` with a card for each note in `papers/`, grouped by
+> whether the paper supports or complicates remote work, and arrows for papers
+> that cite or contradict each other.
+
+Keep the canvas open while the agent works and you will see each revision as
+it lands. If a write is caught halfway, the last version that could be read
+stays on screen with a banner until the file is whole again.
+
+To read or tweak the JSON yourself, use the `</>` button in the corner: it
+opens the file in an editor beside the canvas, and the canvas updates as you
+type.
+
+The same actions are in the command palette as `json_canvas: zoom in`,
+`json_canvas: zoom out`, `json_canvas: zoom to fit`, and
+`json_canvas: edit json`, so you can [bind keys to them](/reference/keybindings).
