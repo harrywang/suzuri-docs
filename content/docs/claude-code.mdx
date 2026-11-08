@@ -1,0 +1,63 @@
+---
+title: Continue in Claude Code
+description: Move a Claude conversation from the agent panel into the claude command-line tool, in a terminal tab.
+icon: Terminal
+---
+
+A conversation with Claude in the agent panel can carry on in
+[Claude Code](https://docs.claude.com/en/docs/claude-code)'s own command-line
+tool, with the whole history intact. Use it when you want something only the
+terminal version has, such as its slash commands.
+
+## Handing a thread over
+
+1. Open the Claude thread in the agent panel.
+2. Click **⋯** in the panel's header and choose **Open Thread in Claude Code**.
+
+A terminal tab opens in the editor area and runs
+`claude --resume <session-id>` in the thread's folder. Claude picks up exactly
+where the panel left off.
+
+The item appears only on threads with the Claude agent. Threads with other
+agents, such as Codex, do not have it.
+
+## If `claude` is not installed
+
+The agent panel runs Claude through Suzuri's built-in connection, which does
+not need the command-line tool. The handoff does. If `claude` is not found, the
+terminal says so and shows how to install it:
+
+```sh
+curl -fsSL https://claude.ai/install.sh | bash
+```
+
+On Windows, in PowerShell:
+
+```powershell
+irm https://claude.ai/install.ps1 | iex
+```
+
+Then choose **Open Thread in Claude Code** again.
+
+## Going back to the panel
+
+The panel and the terminal share one conversation file, but they do not update
+each other while both are open. Each reads the file when it starts and then
+works from its own copy.
+
+- To see what you did in the terminal, choose **⋯ › Reload Agent** in the
+  panel. It reloads the conversation from the file. It also restarts the
+  connection that other open Claude threads use.
+- Work on one side at a time. If you send messages in both, each continues
+  from its own copy and the conversation splits in two.
+- An idle terminal session is harmless to leave open. Before typing in it
+  again after using the panel, quit it and choose
+  **Open Thread in Claude Code** again, so it picks up the newer messages.
+
+## Undoing edits with `/rewind`
+
+`/rewind` in the terminal can restore files only for edits Claude made in the
+terminal. Edits made earlier from the panel are not recorded in a way
+`/rewind` can undo: it rewinds the conversation, but those files stay as they
+are. To get an earlier version back, ask Claude for it, or use your version
+control.
