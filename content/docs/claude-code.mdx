@@ -1,13 +1,15 @@
 ---
 title: Continue in Claude Code
-description: Move a Claude conversation from the agent panel into the claude command-line tool, in a terminal tab.
+description: Move a Claude conversation from the agent panel into the native claude command-line tool, with all of its commands, in a terminal tab.
 icon: Terminal
 ---
 
 A conversation with Claude in the agent panel can carry on in
-[Claude Code](https://docs.claude.com/en/docs/claude-code)'s own command-line
-tool, with the whole history intact. Use it when you want something only the
-terminal version has, such as its slash commands.
+[Claude Code](https://docs.claude.com/en/docs/claude-code)'s native
+command-line tool, with the whole history intact. The panel supports only some
+of Claude Code's slash commands; in the terminal you have all of them, such as
+`/rewind`, `/compact`, and `/context`, along with everything else the native
+tool does.
 
 ## Handing a thread over
 
@@ -54,10 +56,9 @@ works from its own copy.
   again after using the panel, quit it and choose
   **Open Thread in Claude Code** again, so it picks up the newer messages.
 
-## Undoing edits with `/rewind`
+## Files edited from the panel
 
-`/rewind` in the terminal can restore files only for edits Claude made in the
-terminal. Edits made earlier from the panel are not recorded in a way
-`/rewind` can undo: it rewinds the conversation, but those files stay as they
-are. To get an earlier version back, ask Claude for it, or use your version
-control.
+`/rewind` in the terminal rewinds the conversation, but it restores files only
+for edits Claude made in the terminal. Edits made earlier from the panel stay
+as they are. To get an earlier version back, ask Claude for it, or use your
+version control.
