@@ -1,0 +1,57 @@
+---
+title: Local Graph
+description: See the notes linked to and from the note you are writing, as a graph beside it that follows you from note to note.
+icon: Waypoints
+---
+
+**Document → Show Local Graph** opens a graph beside the note you are in: the
+note in the middle, and around it every note it links to and every note that
+links to it. Click a note in the graph to open it, and the graph re-centers on
+that note. It is a way to move through connected ideas by sight instead of
+reading a list of links.
+
+The graph stays on the note you are working in. Switch tabs, follow a
+wikilink, or open a note from the project panel, and the graph follows. Files
+that are not notes, such as a PDF or an image, leave it where it was.
+
+## What counts as a link
+
+- Wikilinks, `[[Note]]`, including `[[Note#Heading]]` and `[[Note|alias]]`
+- Embeds, `![[Note]]`
+- Markdown links to a note in the project, `[text](folder/note.md)`
+
+A link is drawn to the same note that clicking it opens. Links inside code
+blocks, code spans, and frontmatter are not links, and neither are links to
+the web. Links to notes that do not exist yet are left out.
+
+Links are read from the files in the project, so notes you have never opened
+are included, and a note an agent writes or changes shows up without
+reopening anything. The note you are in is read as you type, so a link
+appears in the graph a moment after you finish typing it.
+
+## Depth
+
+The graph opens at depth 1: the notes one link away. The **Depth** buttons in
+the bottom-right corner widen it to 2 or 3 links away, where each note's own
+neighbours fan out behind it. Notes further away are drawn dimmer.
+
+A note with hundreds of links is packed into rings around the center, and a
+graph never draws more than the nearest 400 notes; a line in the corner says
+when some were left out.
+
+## Moving around
+
+- Drag, or scroll with two fingers, to pan
+- Pinch, or <kbd>Cmd</kbd>+scroll, to zoom around the pointer
+- Point at a note to see its full name and highlight its links
+- Click a note to open it where your notes are; the graph stays beside it
+- Use the controls in the bottom-right corner to zoom out, zoom in, or fit the
+  whole graph, which is also how it opens
+
+The same commands are in the command palette as
+`note graph: open local graph`, `note graph: zoom in`, `note graph: zoom out`,
+and `note graph: zoom to fit`, so you can
+[bind keys to them](/reference/keybindings).
+
+The graph covers `.md` files in a local project. In a remote project it shows
+only the links written in the current note.
