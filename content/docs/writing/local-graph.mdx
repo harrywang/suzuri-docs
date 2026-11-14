@@ -20,9 +20,9 @@ that are not notes, such as a PDF or an image, leave it where it was.
 - Embeds, `![[Note]]`
 - Markdown links to a note in the project, `[text](folder/note.md)`
 
-A link is drawn to the same note that clicking it opens. Links inside code
-blocks, code spans, and frontmatter are not links, and neither are links to
-the web. Links to notes that do not exist yet are left out.
+A wikilink is drawn to the same note that clicking it opens. Links inside
+code blocks, code spans, and frontmatter are not links, and neither are links
+to the web. Links to notes that do not exist yet are left out.
 
 Links are read from the files in the project, so notes you have never opened
 are included, and a note an agent writes or changes shows up without
@@ -49,8 +49,8 @@ when some were left out.
   whole graph, which is also how it opens
 
 The same commands are in the command palette as
-`note graph: open local graph`, `note graph: zoom in`, `note graph: zoom out`,
-and `note graph: zoom to fit`, so you can
+`note_graph: open local graph`, `note_graph: zoom in`, `note_graph: zoom out`,
+and `note_graph: zoom to fit`, so you can
 [bind keys to them](/reference/keybindings).
 
 The graph covers `.md` files in a local project. In a remote project it shows
