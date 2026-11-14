@@ -20,9 +20,11 @@ that are not notes, such as a PDF or an image, leave it where it was.
 - Embeds, `![[Note]]`
 - Markdown links to a note in the project, `[text](folder/note.md)`
 
-A wikilink is drawn to the same note that clicking it opens. Links inside
-code blocks, code spans, and frontmatter are not links, and neither are links
-to the web. Links to notes that do not exist yet are left out.
+A wikilink is drawn to the same note that clicking it opens. A markdown link
+is matched by its path exactly as written, so `[text](Note.md)` is not drawn
+when the file is named `note.md`. Links inside code blocks, code spans, and
+frontmatter are not links, and neither are links to the web. Links to notes
+that do not exist yet are left out.
 
 Links are read from the files in the project, so notes you have never opened
 are included, and a note an agent writes or changes shows up without
@@ -33,7 +35,9 @@ appears in the graph a moment after you finish typing it.
 
 The graph opens at depth 1: the notes one link away. The **Depth** buttons in
 the bottom-right corner widen it to 2 or 3 links away, where each note's own
-neighbours fan out behind it. Notes further away are drawn dimmer.
+neighbours fan out behind it. Notes further away are drawn dimmer. The depth
+belongs to the graph you have open: a new graph starts at 1 again, and there
+is no setting for it.
 
 A note with hundreds of links is packed into rings around the center, and a
 graph never draws more than the nearest 400 notes; a line in the corner says
@@ -53,5 +57,12 @@ The same commands are in the command palette as
 and `note_graph: zoom to fit`, so you can
 [bind keys to them](/reference/keybindings).
 
-The graph covers `.md` files in a local project. In a remote project it shows
-only the links written in the current note.
+## Limits
+
+- The graph covers `.md` files in a local project. In a remote project it
+  shows only the links written in the current note.
+- Choosing **Show Local Graph** again goes to the graph that is already open
+  instead of opening a second one.
+- The graph tab is not reopened when Suzuri restarts. Open it again from the
+  Document menu.
+- The menu item is greyed out while the active tab is not a note.
