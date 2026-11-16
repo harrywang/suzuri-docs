@@ -23,6 +23,28 @@ local pane.
 
 ## Keybindings
 
+### Moving through the document
+
+The keys follow Acrobat and Preview.
+
+| Action | macOS | Windows and Linux |
+| --- | --- | --- |
+| Next / previous page | <kbd>→</kbd> / <kbd>←</kbd>, <kbd>Option</kbd>+<kbd>↓</kbd> / <kbd>↑</kbd>, <kbd>Cmd</kbd>+<kbd>Page Down</kbd> / <kbd>Page Up</kbd> | <kbd>→</kbd> / <kbd>←</kbd> |
+| First / last page | <kbd>Home</kbd> / <kbd>End</kbd>, <kbd>Cmd</kbd>+<kbd>↑</kbd> / <kbd>↓</kbd>, <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>↑</kbd> / <kbd>↓</kbd> | <kbd>Home</kbd> / <kbd>End</kbd>, <kbd>Ctrl</kbd>+<kbd>Home</kbd> / <kbd>End</kbd>, <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>↑</kbd> / <kbd>↓</kbd> |
+| Scroll a little | <kbd>↓</kbd> / <kbd>↑</kbd>, <kbd>J</kbd> / <kbd>K</kbd> | <kbd>↓</kbd> / <kbd>↑</kbd>, <kbd>J</kbd> / <kbd>K</kbd> |
+| Scroll a screen | <kbd>Page Down</kbd> / <kbd>Page Up</kbd>, <kbd>Space</kbd> / <kbd>Shift</kbd>+<kbd>Space</kbd>, <kbd>Return</kbd> / <kbd>Shift</kbd>+<kbd>Return</kbd> | <kbd>Page Down</kbd> / <kbd>Page Up</kbd>, <kbd>Space</kbd> / <kbd>Shift</kbd>+<kbd>Space</kbd>, <kbd>Enter</kbd> / <kbd>Shift</kbd>+<kbd>Enter</kbd> |
+| Go to page | <kbd>Cmd</kbd>+<kbd>Option</kbd>+<kbd>G</kbd> or <kbd>Ctrl</kbd>+<kbd>G</kbd> | <kbd>Ctrl</kbd>+<kbd>G</kbd> |
+
+**Previous page** first goes to the top of the page you are partway down,
+then to the page before it. **Scroll a screen** keeps the last line of the
+old screen in view, so you don't lose your place.
+
+**Go to page** puts the cursor in the page number at the top left: type a
+number and press <kbd>Enter</kbd>, or <kbd>Esc</kbd> to leave it. While you
+type there, these keys go to the box, not the document.
+
+### Zoom and copy
+
 | Action | macOS |
 | --- | --- |
 | Zoom in | <kbd>Cmd</kbd>+<kbd>=</kbd> |
@@ -32,10 +54,9 @@ local pane.
 | Fit to view width | <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd> |
 | Copy all document text | <kbd>Cmd</kbd>+<kbd>C</kbd> |
 
-On Windows and Linux, substitute <kbd>Ctrl</kbd>. The same actions are
-available from the command palette as `pdf_viewer: zoom in`,
-`pdf_viewer: fit to view`, and so on, so you can
-[rebind them](/reference/keybindings).
+On Windows and Linux, substitute <kbd>Ctrl</kbd>. Every key here is an action
+in the command palette (`pdf_viewer: next page`, `pdf_viewer: fit to view`,
+and so on), so you can [rebind it](/reference/keybindings).
 
 <Callout title="Copy all document text">
 <kbd>Cmd</kbd>+<kbd>C</kbd> with no selection copies the *entire* document's
