@@ -55,16 +55,28 @@ for `.typ` and `.tex` files, and an entry in the project panel's context menu.
 
 These apply while a [PDF tab](/reading/pdf-viewer) has focus.
 
-| Action | Default (macOS) |
-| --- | --- |
-| `pdf_viewer::ZoomIn` | <kbd>Cmd</kbd>+<kbd>=</kbd> |
-| `pdf_viewer::ZoomOut` | <kbd>Cmd</kbd>+<kbd>-</kbd> |
-| `pdf_viewer::ResetZoom` | <kbd>Cmd</kbd>+<kbd>0</kbd> |
-| `pdf_viewer::ZoomToActualSize` | <kbd>Cmd</kbd>+<kbd>1</kbd> |
-| `pdf_viewer::FitToView` | <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd> |
-| `pdf_viewer::CopyDocumentText` | <kbd>Cmd</kbd>+<kbd>C</kbd> |
+| Action | Default (macOS) | Default (Windows and Linux) |
+| --- | --- | --- |
+| `pdf_viewer::NextPage` | <kbd>→</kbd>, <kbd>Option</kbd>+<kbd>↓</kbd>, <kbd>Cmd</kbd>+<kbd>Page Down</kbd> | <kbd>→</kbd> |
+| `pdf_viewer::PreviousPage` | <kbd>←</kbd>, <kbd>Option</kbd>+<kbd>↑</kbd>, <kbd>Cmd</kbd>+<kbd>Page Up</kbd> | <kbd>←</kbd> |
+| `pdf_viewer::FirstPage` | <kbd>Home</kbd>, <kbd>Cmd</kbd>+<kbd>↑</kbd>, <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>↑</kbd> | <kbd>Home</kbd>, <kbd>Ctrl</kbd>+<kbd>Home</kbd>, <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>↑</kbd> |
+| `pdf_viewer::LastPage` | <kbd>End</kbd>, <kbd>Cmd</kbd>+<kbd>↓</kbd>, <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>↓</kbd> | <kbd>End</kbd>, <kbd>Ctrl</kbd>+<kbd>End</kbd>, <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>↓</kbd> |
+| `pdf_viewer::ScrollDown` | <kbd>↓</kbd>, <kbd>J</kbd> | <kbd>↓</kbd>, <kbd>J</kbd> |
+| `pdf_viewer::ScrollUp` | <kbd>↑</kbd>, <kbd>K</kbd> | <kbd>↑</kbd>, <kbd>K</kbd> |
+| `pdf_viewer::ScrollScreenDown` | <kbd>Page Down</kbd>, <kbd>Space</kbd>, <kbd>Return</kbd> | <kbd>Page Down</kbd>, <kbd>Space</kbd>, <kbd>Enter</kbd> |
+| `pdf_viewer::ScrollScreenUp` | <kbd>Page Up</kbd>, <kbd>Shift</kbd>+<kbd>Space</kbd>, <kbd>Shift</kbd>+<kbd>Return</kbd> | <kbd>Page Up</kbd>, <kbd>Shift</kbd>+<kbd>Space</kbd>, <kbd>Shift</kbd>+<kbd>Enter</kbd> |
+| `pdf_viewer::GoToPage` | <kbd>Cmd</kbd>+<kbd>Option</kbd>+<kbd>G</kbd>, <kbd>Ctrl</kbd>+<kbd>G</kbd> | <kbd>Ctrl</kbd>+<kbd>G</kbd> |
+| `pdf_viewer::ZoomIn` | <kbd>Cmd</kbd>+<kbd>=</kbd> | <kbd>Ctrl</kbd>+<kbd>=</kbd> |
+| `pdf_viewer::ZoomOut` | <kbd>Cmd</kbd>+<kbd>-</kbd> | <kbd>Ctrl</kbd>+<kbd>-</kbd> |
+| `pdf_viewer::ResetZoom` | <kbd>Cmd</kbd>+<kbd>0</kbd> | <kbd>Ctrl</kbd>+<kbd>0</kbd> |
+| `pdf_viewer::ZoomToActualSize` | <kbd>Cmd</kbd>+<kbd>1</kbd> | <kbd>Ctrl</kbd>+<kbd>1</kbd> |
+| `pdf_viewer::FitToView` | <kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd> | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd> |
+| `pdf_viewer::CopyDocumentText` | <kbd>Cmd</kbd>+<kbd>C</kbd> | <kbd>Ctrl</kbd>+<kbd>C</kbd> |
 
-On Windows and Linux, substitute <kbd>Ctrl</kbd> for <kbd>Cmd</kbd>.
+The single keys (arrows, <kbd>Space</kbd>, <kbd>J</kbd>, <kbd>K</kbd>,
+<kbd>Enter</kbd> and the rest of the paging keys) are bound under the
+`PdfViewer && not_editing` context, so they type into the page-number box
+instead while it has focus. Bind your own the same way.
 
 ## Widget keys
 
