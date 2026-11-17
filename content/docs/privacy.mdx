@@ -1,0 +1,59 @@
+---
+title: Privacy
+description: Suzuri collects no telemetry. Here is every connection it does make, and why.
+icon: ShieldCheck
+---
+
+**Suzuri collects no usage data and no crash reports.** There is no Suzuri
+analytics server. The maintainers' only signal about adoption is the download
+count GitHub shows for each release.
+
+Your notes, references, and PDFs stay on your machine. Suzuri reads and writes
+plain files in the folders you open, and nothing uploads them.
+
+## Zed's telemetry is off
+
+Suzuri is built on [Zed](/relationship-to-zed), which can send anonymous usage
+events and crash reports to Zed Industries. Suzuri turns both off by default:
+
+```json title="settings.json"
+{
+  "telemetry": {
+    "metrics": false,
+    "diagnostics": false
+  }
+}
+```
+
+**Releases up to 0.6.6 had both on**, because they kept Zed's defaults. Those
+events went to Zed's servers, not to Suzuri; Zed's
+[telemetry documentation](https://zed.dev/docs/telemetry) lists what they
+contain. Updating
+to a later release turns them off unless you switched them on yourself, either
+in `settings.json` or with the checkboxes on the welcome page.
+
+## Connections Suzuri makes
+
+Suzuri connects to the network only to fetch something a feature needs:
+
+| When | Where | What is sent |
+| --- | --- | --- |
+| Checking for updates | GitHub, Suzuri's [releases](https://github.com/harrywang/suzuri/releases) | An ordinary download request. Turn off with `"auto_update": false`; see [Updating](/updating). |
+| First use of wikilinks, Typst, LaTeX, or Pandoc export | GitHub releases of [markdown-oxide](https://github.com/Feel-ix-343/markdown-oxide), [Typst](https://github.com/typst/typst), [TinyTeX](https://github.com/rstudio/tinytex-releases), and [Pandoc](https://github.com/jgm/pandoc) | A download request. Each file is checked against a pinned digest. A copy already on your `PATH` is used instead. |
+| A LaTeX document needs a package TinyTeX lacks | The TeX Live package repository, via `tlmgr` | The package name. |
+| Inserting a citation from Zotero | Zotero on your own machine (`localhost`) | Nothing leaves your computer. |
+| A note shows an image from an `https://` address | That image's server | An ordinary image request, as a browser would make. |
+
+Upstream Zed features that Suzuri keeps also make their own connections:
+
+- **Extensions.** On launch, Suzuri asks Zed's extension registry whether your
+  installed extensions have updates, and installs Zed's default HTML extension
+  the first time. Browsing or installing extensions uses the same registry.
+- **Language servers.** Opening a file type with a language server (JSON, YAML,
+  Python, and so on) can download that server from GitHub or npm, exactly as
+  Zed does.
+- **Zed account and AI.** Suzuri connects to Zed's servers for an account only
+  if you sign in. The agent panel and edit predictions talk to whichever AI
+  provider you configure, and to nothing until you do.
+- **Remote development.** Connecting to an SSH host copies Suzuri's remote
+  server there, downloaded from the matching GitHub release.
