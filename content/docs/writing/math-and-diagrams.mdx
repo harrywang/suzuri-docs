@@ -19,6 +19,18 @@ $$
 $$
 ```
 
+Math pasted from ChatGPT and other LLMs often uses LaTeX's own delimiters, and those render too: `\(...\)` inline and `\[...\]` for display math.
+
+```md
+The integral \( \int_0^\infty e^{-x^2} dx \) converges:
+
+\[
+\int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
+\]
+```
+
+In markdown, `\[` is also how you write a literal bracket, so `\[...\]` counts as math only when it sits alone on its lines. A mid-sentence `see \[1\]` stays text. `\(...\)` renders anywhere in a line. Export renders both forms as math.
+
 Rendering goes through [RaTeX](https://github.com/erweixin/RaTeX), a
 KaTeX-compatible math engine written in Rust, so the syntax you already know
 from KaTeX applies. Nothing is fetched at render time and no browser is
@@ -53,4 +65,5 @@ moving the cursor into the block reveals the source.
 <Callout title="Both are plain text on disk">
 Math and diagrams are ordinary markdown — `$$` and a fenced code block.
 GitHub, Obsidian, and Pandoc all read the same file; Suzuri just draws it.
+`\(...\)` and `\[...\]` are the exception: GitHub and Obsidian show them as text, so prefer `$` for notes you share there.
 </Callout>
