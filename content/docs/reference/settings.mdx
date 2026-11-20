@@ -54,6 +54,7 @@ Obsidian-style [live preview](/writing/live-preview) for markdown buffers.
 {
   "markdown_live_preview": {
     "enabled": true,
+    "font_family": null,
     "heading_styles": {
       "h1": { "font_size": 1.75, "font_weight": 600 },
       "h2": { "font_size": 1.4, "font_weight": 600 },
@@ -71,6 +72,7 @@ Obsidian-style [live preview](/writing/live-preview) for markdown buffers.
 | Key | Default | What it does |
 | --- | --- | --- |
 | `enabled` | `true` | Render markdown inline in the editor. |
+| `font_family` | `null` | A font for notes, such as `"Avenir Next"`, while live preview renders them. Code files keep `buffer_font_family`, and so does a note while live preview is off. Inline code and code blocks inside a note use this font too, since the editor draws a note in one font. `null` uses `buffer_font_family`. |
 | `heading_styles.h1`–`h6` | see above | Heading typography. `font_size` multiplies the editor's base font size; `font_weight` is a CSS value from 100 to 900. |
 | `attachments_folder` | `"attachments"` | Folder for [dropped and pasted attachments](/writing/attachments), relative to the note's folder. `""` stores them beside the note. |
 | `word_count` | `true` | Show a [word count](/writing/live-preview#word-count) in the status bar for markdown notes. Frontmatter, code, math, cite keys and the reference list are not counted. |
