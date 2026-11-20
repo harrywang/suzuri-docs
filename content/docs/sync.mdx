@@ -1,0 +1,143 @@
+---
+title: Sync with GitHub
+description: Back up a folder of notes to a private GitHub repository and keep it in sync, without using git yourself.
+icon: FolderSync
+---
+
+**Document → Sync → Turn On Auto Sync…** backs up the folder you have open to
+a private repository on GitHub and keeps the two in sync. After that, every
+change is saved to GitHub a few seconds after you make it, and changes made on
+another computer arrive here by themselves.
+
+You do not need to know git. Suzuri signs you in, creates the repository, and
+does the committing, pulling, and pushing.
+
+## Turning it on
+
+Open the folder you want backed up, then choose **Document → Sync → Turn On
+Auto Sync…**.
+
+1. **Continue** past the first prompt, which says what is about to happen.
+2. **Sign in to GitHub.** Suzuri shows a one-time code and has already copied
+   it. Click **Open GitHub**, paste the code on the page that opens, and
+   approve Suzuri. You are asked only the first time.
+3. **Choose where the folder goes.** **Create Private Repository** makes a new
+   one named after the folder. **Use an Empty Repository I Already Have…**
+   lists your repositories that have nothing in them yet.
+
+Suzuri then uploads the folder. A message says which repository it is
+connected to, and a second one says when the first sync has finished.
+
+Auto sync is turned on per folder, on this computer. Other folders are not
+synced until you turn it on in them too.
+
+<Callout type="info">
+  Suzuri uses the git program on your computer. A Mac without Apple's
+  command line developer tools is offered the install when you turn sync on;
+  on Windows, install [Git](https://git-scm.com) first.
+</Callout>
+
+## What it does afterwards
+
+- **Your changes go up** 5 seconds after you stop editing. A run of edits
+  becomes one saved version, named after the file, such as `Update Ideas.md`.
+- **Changes from your other computers come down** every 5 minutes, and once
+  when you open the folder.
+- **Document → Sync → Sync Now** does both at once.
+
+Both timings are [settings](/reference/settings#auto_sync), also shown on the
+**Suzuri** page of the settings window.
+
+Every saved version is kept in the repository, so GitHub shows the history of
+each note and what changed in it.
+
+## What is not uploaded
+
+- Files matched by a `.gitignore` file in the folder.
+- A folder inside yours that is a git repository of its own, such as code you
+  cloned next to your notes. The first prompt names each one. To back one up,
+  open that folder by itself and turn on auto sync there.
+
+GitHub refuses files larger than 100 MB. If your folder holds one, sync stops
+and says so; add the file to `.gitignore` to leave it out.
+
+## When the same note changed in two places
+
+If a note was edited here and on another computer before either could sync,
+and the edits touch the same lines, Suzuri cannot choose for you. Auto sync
+pauses and shows a message with an **Open File** button.
+
+The note then holds both versions, marked like this:
+
+```md
+<<<<<<< HEAD
+the line as you wrote it here
+=======
+the line as it was written elsewhere
+>>>>>>> origin/main
+```
+
+Keep the text you want, delete the three marker lines, and save. Syncing
+resumes by itself within a few seconds. A note that still has these markers
+is never uploaded.
+
+Edits to different notes, or to different parts of the same note, are
+combined without asking.
+
+## A second computer
+
+1. Get the folder: run `git: clone` from the command palette and paste the
+   repository's address from GitHub.
+2. Open the cloned folder and choose **Document → Sync → Turn On Auto Sync…**.
+
+Cloning a private repository needs your GitHub credentials. If it asks for a
+password, give a [personal access token](https://github.com/settings/tokens)
+instead. If a later sync is refused, the message has a **Sign In to GitHub**
+button, which signs Suzuri in the way the first computer was.
+
+## A folder that already uses git
+
+When the folder is already a repository with a remote, on GitHub or anywhere
+else, **Turn On Auto Sync…** names that remote and asks before starting. No
+sign-in is needed: syncing uses the credentials git already has for it.
+
+Auto sync commits everything in the folder, including changes you have not
+committed yet, and pulls by merging. It adds a `pull.rebase = false` setting
+to the repository if you have not chosen one, and removes it again when you
+turn sync off.
+
+## When it will not turn on
+
+| Message | What to do |
+| --- | --- |
+| **Trust this folder first** | The folder is open in Restricted Mode. Trust it with the button in the title bar, then turn sync on. |
+| **This folder is inside a larger git repository** | Syncing would upload the whole larger repository. Move your notes into a folder of their own, or open the larger folder if you mean to sync all of it. |
+| **This repository has several remotes** | Push once from the Git panel and pick the remote; auto sync then follows it. |
+| **That name is taken** | You already have a repository with the folder's name. Choose it from your empty repositories, or rename the folder. |
+
+## Turning it off
+
+**Document → Sync → Turn Off Auto Sync** stops syncing this folder. Nothing is
+deleted: the notes, their history, and the repository on GitHub all stay.
+Turn it on again at any time.
+
+## Your GitHub sign-in
+
+- Suzuri asks GitHub for permission to create and update your repositories.
+  GitHub offers no narrower permission to an app that creates a private
+  repository for you.
+- The sign-in is kept in your system's password store (Keychain on macOS),
+  not in a file in your project. It is sent only to `github.com`.
+- To withdraw it, open GitHub's
+  [Authorized OAuth Apps](https://github.com/settings/applications) and revoke
+  **Suzuri**. Your repositories are not affected.
+
+See [Privacy](/privacy) for every connection Suzuri makes.
+
+## Limits
+
+- Auto sync works in local folders, not in remote (SSH) projects.
+- Notes are stored on GitHub as they are, not encrypted. A private repository
+  is visible only to you and to people you invite.
+- An empty repository is recognized by GitHub's own size figure, which can
+  lag behind a repository that was changed a moment ago.

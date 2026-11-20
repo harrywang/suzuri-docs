@@ -9,7 +9,9 @@ analytics server. The maintainers' only signal about adoption is the download
 count GitHub shows for each release.
 
 Your notes, references, and PDFs stay on your machine. Suzuri reads and writes
-plain files in the folders you open, and nothing uploads them.
+plain files in the folders you open, and nothing uploads them unless you turn
+on [sync with GitHub](/sync) for a folder, which sends that folder to a
+repository in your own GitHub account.
 
 ## Zed's telemetry is off
 
@@ -42,6 +44,7 @@ Suzuri connects to the network only to fetch something a feature needs:
 | First use of wikilinks, Typst, LaTeX, or Pandoc export | GitHub releases of [markdown-oxide](https://github.com/Feel-ix-343/markdown-oxide), [Typst](https://github.com/typst/typst), [TinyTeX](https://github.com/rstudio/tinytex-releases), and [Pandoc](https://github.com/jgm/pandoc) | A download request. Each file is checked against a pinned digest. A copy already on your `PATH` is used instead. |
 | A LaTeX document needs a package TinyTeX lacks | The TeX Live package repository, via `tlmgr` | The package name. |
 | Inserting a citation from Zotero | Zotero on your own machine (`localhost`) | Nothing leaves your computer. |
+| [Auto sync](/sync) is turned on for a folder | GitHub, your own account | Signing in, then that folder's files, to a repository you chose. Nothing is sent for folders where it is off. |
 | A note shows an image from an `https://` address | That image's server | An ordinary image request, as a browser would make. |
 
 Upstream Zed features that Suzuri keeps also make their own connections:
