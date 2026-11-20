@@ -75,6 +75,18 @@ Obsidian-style [live preview](/writing/live-preview) for markdown buffers.
 | `attachments_folder` | `"attachments"` | Folder for [dropped and pasted attachments](/writing/attachments), relative to the note's folder. `""` stores them beside the note. |
 | `word_count` | `true` | Show a [word count](/writing/live-preview#word-count) in the status bar for markdown notes. Frontmatter, code, math, cite keys and the reference list are not counted. |
 
+### Note font
+
+Notes can use their own font, such as a proportional document font, while code files keep `buffer_font_family`. Pick one in **Settings → Appearance → Markdown Preview Font → Font Family**, or set Zed's `markdown_preview.font_family`:
+
+```json title="settings.json"
+{
+  "markdown_preview": { "font_family": "Avenir Next" }
+}
+```
+
+Any font installed on your computer works. When it is unset, notes keep `buffer_font_family`, even though Zed's own markdown preview pane falls back to the UI font. The font applies while live preview renders a note; with live preview off, the note shows in the buffer font. Code blocks keep the buffer font, but inline code uses the note font, since the editor draws a line of text in one font.
+
 ## `citations`
 
 The vault's bibliography and its [Zotero](/writing/zotero) link.
